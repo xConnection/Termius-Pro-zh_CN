@@ -152,7 +152,7 @@ title:"Use Option as Meta key"|title:"将Option键映射为Meta键"
 "Disabled"|"已禁用"
 "Connect to a Host"|"连接到主机"
 title:"About"|title:"关于"
-detail:`Version |detail:`版本 
+#detail:`Version |detail:`版本 
 
 "Set up two-factor authentication"|"设置双重身份验证"
 "Two-factor authentication is required"|"需要双重身份验证"
