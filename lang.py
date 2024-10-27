@@ -30,7 +30,7 @@ class TermiusModifier:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 if strip_empty:
-                    return [line.strip() for line in file if line.strip()]  # 返回非空行列表
+                    return [line.rstrip("\r\n") for line in file if line.strip()]  # 返回非空行列表
                 return file.read()  # 返回文件内容作为字符串
         except FileNotFoundError:
             logging.error(f"File not found: {file_path}")
