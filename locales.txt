@@ -1,6 +1,8 @@
 #本地试用
 const e=await this.api.bulkAccount();|var e=await this.api.bulkAccount();e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];
 upgrade:{title:"Upgrade",icon:l}|upgrade:{title:"",icon:""}
+api.termius.com|localhost
+,e(s,{selected:p,onClick:b,children:"Request a Feature"}),|,
 
 #开启调试
 ...Co(!1,[{label:"Termius Dev Tools"|...Co(!0,[{label:"Termius Dev Tools"
@@ -991,7 +993,7 @@ plural:"packages"|plural:"包"
 singular:"snippet"|singular:"代码片段"
 plural:"snippets"|plural:"代码片段"
 title:`Remove |title:`删除 
-text:`Are you sure you want to remove |text:`你确定要删除 
+text:`Are you sure you want to remove |text:`你确定要删除
 
 
 "Choose where to store credentials"|"选择存储证书的位置"
@@ -1129,3 +1131,9 @@ text:"Do you want to cancel key export and discard all changes?"|text:"是否要
 "Termius notices a potential security breach."|"Termius 注意到潜在的安全漏洞."
 "New "|"新的 "
 "Add as new"|"新增"
+
+#20241028新增
+"Saving in progress"|"正在保存"
+singular:"key",plural:"keys"|singular:"密钥",plural:"密钥"
+"There was a problem in the authorized_keys save process"|"authorized_keys保存过程中出现问题"
+"Incorrect format"|"格式不正确"
