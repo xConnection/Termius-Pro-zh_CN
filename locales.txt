@@ -755,6 +755,7 @@ no_credentials_sharing:"No credentials",credentials_sharing:"Credentials"|no_cre
 "Generate FIDO2 key"|"生成FIDO2密钥"
 "Generate key"|"生成密钥"
 "Known Hosts"|"已知主机"
+"Known Host"|"已知主机"
 "This is the place for your known host public keys, similar to ~/.ssh/known_hosts."|"这是你已知主机公钥的位置, 类似于~/.ssh/known_hosts。"
 "Move focus between Split View panes"|"在分割视图窗格之间移动焦点"
 "Copy from Terminal"|"从终端复制"
@@ -992,8 +993,8 @@ singular:"package"|singular:"包"
 plural:"packages"|plural:"包"
 singular:"snippet"|singular:"代码片段"
 plural:"snippets"|plural:"代码片段"
-title:`Remove |title:`删除 
-text:`Are you sure you want to remove |text:`你确定要删除
+title:`Remove |title:`删除
+text:`Are you sure you want to remove |text:`你确定要删除 
 
 
 "Choose where to store credentials"|"选择存储证书的位置"
@@ -1135,5 +1136,19 @@ text:"Do you want to cancel key export and discard all changes?"|text:"是否要
 #20241028新增
 "Saving in progress"|"正在保存"
 singular:"key",plural:"keys"|singular:"密钥",plural:"密钥"
+singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已知主机"
 "There was a problem in the authorized_keys save process"|"authorized_keys保存过程中出现问题"
 "Incorrect format"|"格式不正确"
+" and "|" 和 "
+`${e} ${e>1?o:n}`|`${e} 个${e>1?o:n}`
+"Export to a host"|"导出到主机"
+"Save authorized_keys file"|"保存authorized_keys文件"
+"Export snippet"|"导出代码片段"
+"Key Details Context Menu"|"Key Details Context Menu"
+name:`${b} to`|name:`${b}到`
+`${e} ${mvt(t)} to`|`${e} ${mvt(t)} 到`
+target:`${n} Vault`|target:`${n} 保管库`
+message:`${wP.moving} ${r} to `|message:`${wP.moving} ${r} 到 `
+"Couldn’t get the link."|"无法获取链接。"
+"Something went wrong."|"出错了."
+"Something went wrong!"|"出错了!"
