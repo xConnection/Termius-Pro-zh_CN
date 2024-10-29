@@ -1,8 +1,17 @@
-#本地试用
-const e=await this.api.bulkAccount();|var e=await this.api.bulkAccount();e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];
+#离线版,非离线请删除以下配置
+bulkAccount(){return this.get(Tt.bulkAccount)}|async bulkAccount(){var e=await this.get(Tt.bulkAccount);e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];return e;}
+#const e=await this.api.bulkAccount();|var e=await this.api.bulkAccount();e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];
 upgrade:{title:"Upgrade",icon:l}|upgrade:{title:"",icon:""}
-api.termius.com|localhost
 ,e(s,{selected:p,onClick:b,children:"Request a Feature"}),|,
+#删除添加保管库按钮
+case"newVaultPromo":{x.push(Fie(()=>{s(),g(`${w} in Context Menu`,e)}));break}|
+case"newVault":{x.push(Die(()=>{s(),m(`${w} in Context Menu`,e)}));break}|
+case"newVaultPromo":{g.push(Fie(()=>u("Edit Form",e)));break}|
+case"newVault":{g.push(Die(()=>l("Edit Form",e)));break}|
+{children:[n("div",{className:o.divider}),n(Wr,{onClick:I,label:"Add vault",variant:f?"default":"withUpgradeIcon"})]}|{}
+#api.termius.com|localhost
+#/api/v4/bulk/account/|/api/v4/bulk/accountabc/
+#离线版配置结束
 
 #开启调试
 ...Co(!1,[{label:"Termius Dev Tools"|...Co(!0,[{label:"Termius Dev Tools"
@@ -49,7 +58,7 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 "Re-enter your "|"重新输入你的 "
 "To enable this feature, please enter your Termius"|"要启用这个特性, 请输入你的Termius"
 "To enable access to the shared data, please enter your Termius"|"要打开这个分享数据的访问, 请输入你的Termius"
-"You can also do it later in settings."|"你爱做不做,现在不弄以后弄也行"
+"You can also do it later in settings."|"你也可以稍后在设置中执行此操作。"
 
 {LOCAL:"Local",REMOTE:"Remote",DYNAMIC:"Dynamic"}|{LOCAL:"本地",REMOTE:"远程",DYNAMIC:"动态"}
 ["Hostname", "Username"]|["主机名", "用户名"]
@@ -62,8 +71,8 @@ children:"Themes"|children:"主题"
 "Enable Access to Shared Groups"|"启用分享组访问"
 "Log out"|"退出登录"
 "Delete account"|"删除账户"
-"Change "|"修改 "
-"encryption password"|"加密密码"
+"Change "|"修改"
+"encryption password"|"密码"
 "Enable group sharing"|"启用组分享"
 label:"Verify"|label:"验证"
 label:"Change"|label:"更改"
@@ -154,7 +163,7 @@ title:"Use Option as Meta key"|title:"将Option键映射为Meta键"
 "Disabled"|"已禁用"
 "Connect to a Host"|"连接到主机"
 title:"About"|title:"关于"
-#detail:`Version |detail:`版本 
+#detail:`Version |detail:`版本
 
 "Set up two-factor authentication"|"设置双重身份验证"
 "Two-factor authentication is required"|"需要双重身份验证"
@@ -513,7 +522,7 @@ children:"New"|children:"新建"
 "Enable IPv6"|"启用 IPv6"
 "New Host"|"添加主机"
 "New Group"|"添加分组"
-`Connecting to |`连接到 
+`Connecting to |`连接到
 "Add to host"|"添加到主机"
 "Preferences"|"首选项"
 "New email"|"新邮箱"
@@ -879,7 +888,7 @@ text:"Off"|text:"关"
 ["Select the ",o==="remote"?"remote":"intermediate"," host:"]|["选择",o==="remote"?"远程":"中间","主机:"]
 "We will forward traffic from specified port and interface address of the selected host. "|"我们将从所选主机的指定端口和接口地址转发流量。"
 "Remove Port Forwarding rule"|"删除端口转发规则"
-`Are you sure you want to delete |`你确定要删除 
+`Are you sure you want to delete |`你确定要删除
 singular:"rule"|singular:"规则"
 plural:"rules"|plural:"规则"
 "Select a host"|"选择主机"
@@ -895,7 +904,7 @@ plural:"rules"|plural:"规则"
 "All hosts"|"所有主机"
 "Hosts"|"主机"
 "Drag and drop your file here"|"将你的文件拖放到此处"
-"or"|"或" 
+"or"|"或"
 "choose file."|"选择文件"
 title:"Add most common commands for"|title:"添加最常见的命令"
 "Save your top 5 commands as snippets"|"将你的前5个命令保存为片段"
@@ -994,7 +1003,7 @@ plural:"packages"|plural:"包"
 singular:"snippet"|singular:"代码片段"
 plural:"snippets"|plural:"代码片段"
 title:`Remove |title:`删除
-text:`Are you sure you want to remove |text:`你确定要删除 
+text:`Are you sure you want to remove |text:`你确定要删除
 
 
 "Choose where to store credentials"|"选择存储证书的位置"
@@ -1034,15 +1043,15 @@ name:`with |name:`使用
 " icon is clicked."|"图标时，操作描述可能会被监控。"
 
 
-`Remove |`删除 
+`Remove |`删除
 singular:"a group"|singular:"组"
 plural:"groups"|plural:"组"
 singular:"a host"|singular:"主机"
 plural:"hosts"|singular:"主机"
-`You are going to remove |`你将删除 
+`You are going to remove |`你将删除
 singular:"this group"|singular:"这个组"
 plural:"these groups"|plural:"这些组"
-`And |`和 
+`And |`和
 singular:"this host"|singular:"这个主机"
 plural:"these hosts"|plural:"这些主机"
 
@@ -1070,7 +1079,7 @@ plural:"these hosts"|plural:"这些主机"
 "Store on device"|"存储在设备上"
 "Create a discoverable (resident) key on FIDO2 device."|"在 FIDO2 设备上创建一个可发现的（常驻）密钥。"
 "User ID"|"用户ID"
-#`Type |`类型 
+#`Type |`类型
 #return"Type unknown"|return"类型未知"
 #return"Type ECDSA"|return"类型 ECDSA"
 certificate:"Certificate"|certificate:"证书"
@@ -1094,7 +1103,7 @@ title:"Ask AI to write a command for you"|title:"询问AI并让它帮你编写�
 "You ","don't"," have file type associations yet"|"你现在 ","还没有"," 关联的文件类型"
 "Here you will be able to see the apps that you chose to open files in SFTP via “Open With...” option"|"在这里, 你可以通过“打开方式…”选项查看你选择在SFTP中打开文件的应用程序"
 endAdornment:"arrows"|endAdornment:"方向键"
-"Switch to specific Tab |"切换到指定的标签页 
+"Switch to specific Tab |"切换到指定的标签页
 "Termius for Teams"|"Termius团队版"
 "Keeping the whole team up to date"|"让你的团队走在时代潮流先锋!"
 " with the latest changes to the infrastructure is easy with"," ",E.a.createElement("strong",null,"secure sharing")|" 对基础结构进行最新的更改很容易,使用"," ",E.a.createElement("strong",null,"安全分享")
@@ -1145,8 +1154,7 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Save authorized_keys file"|"保存authorized_keys文件"
 "Export snippet"|"导出代码片段"
 "Key Details Context Menu"|"Key Details Context Menu"
-name:`${b} to`|name:`${b}到`
-`${e} ${mvt(t)} to`|`${e} ${mvt(t)} 到`
+} to`|}到`
 target:`${n} Vault`|target:`${n} 保管库`
 message:`${wP.moving} ${r} to `|message:`${wP.moving} ${r} 到 `
 "Couldn’t get the link."|"无法获取链接。"
