@@ -1177,3 +1177,6 @@ placeholder:"Certificate"|placeholder:"证书"
 case"certificate":return"Certificate"|case"certificate":return"证书"
 case"charset":return"Encoding"|case"charset":return"编码"
 case"fido":return"FIDO2 Key"|case"fido":return"FIDO2密钥"
+
+"Create a new host"|"创建新主机"
+"Save connection parameters as a Host to connect with one click."|"将连接参数保存为主机, 以便一键连接。"
