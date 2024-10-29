@@ -1180,3 +1180,8 @@ case"fido":return"FIDO2 Key"|case"fido":return"FIDO2密钥"
 
 "Create a new host"|"创建新主机"
 "Save connection parameters as a Host to connect with one click."|"将连接参数保存为主机, 以便一键连接。"
+
+"No snippets"|"无代码片段"
+"Organize your snippets in packages."|"在包中组织代码片段。"
+"Move snippets from root"|"从根目录移动代码片段"
+"Create snippet"|"创建代码片段"
