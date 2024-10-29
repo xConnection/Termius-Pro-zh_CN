@@ -55,9 +55,9 @@ class TermiusModifier:
         else:
             shutil.copy(backup_path, f"{self.termius_path}/app.asar")
 
-    def load_files(self, js_files):
+    def load_files(self, code_files):
         """加载文件内容到缓存中。"""
-        for file in js_files:
+        for file in code_files:
             if path.exists(file):
                 self.files_cache[file] = self.read_file(file, strip_empty=False)  # 读取完整内容
 
@@ -89,23 +89,26 @@ class TermiusModifier:
             with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(content)
 
-    def get_js_files(self):
-        """获取所有 JS 文件路径。"""
+    def get_code_files(self, include_css=False):
+        """获取所有代码文件路径（包含 .code 和可选的 .css 文件）。"""
         prefix_links = [
             os.path.join(self.termius_path, 'app', 'background-process', 'assets'),
             os.path.join(self.termius_path, 'app', 'ui-process', 'assets'),
             os.path.join(self.termius_path, 'app', 'main-process'),
         ]
-        js_files = []
+        code_files = []
         for prefix in prefix_links:
             for root, _, files in os.walk(prefix):
-                js_files.extend([os.path.join(root, f) for f in files if f.endswith(".js")])
-        return js_files
+                if include_css:
+                    code_files.extend([os.path.join(root, f) for f in files if f.endswith(('.js', '.css'))])
+                else:
+                    code_files.extend([os.path.join(root, f) for f in files if f.endswith(".js")])
+        return code_files
 
-    def search_in_files(self, search_terms, js_files):
-        """在 JS 文件中搜索字符串并打印结果。"""
+    def search_in_files(self, search_terms, code_files):
+        """在 JS 和 CSS 文件中搜索字符串并打印结果。"""
         found_files = []
-        for file_path in js_files:
+        for file_path in code_files:
             file_content = self.read_file(file_path, strip_empty=False)  # 读取完整内容
             if file_content and all(term in file_content for term in search_terms):  # 检查所有搜索项
                 found_files.append(file_path)
@@ -115,7 +118,7 @@ class TermiusModifier:
         else:
             logging.info(f"No results found for terms {search_terms}.")
 
-    def perform_replacement(self):
+    def perform_replacement(self, include_css=False):
         """执行字符串替换的所有步骤。"""
         self.backup_asar()
 
@@ -127,9 +130,9 @@ class TermiusModifier:
             self.decompress_asar()
 
         cn_lang = self.read_file("locales.txt")  # 读取语言文件内容
-        js_files = self.get_js_files()
+        code_files = self.get_code_files(include_css=include_css)  # 根据 include_css 参数获取文件列表
 
-        self.load_files(js_files)
+        self.load_files(code_files)
         self.replace_strings_in_files(cn_lang)
         self.write_files()
         self.pack_to_asar()
@@ -138,22 +141,26 @@ class TermiusModifier:
 def main():
     parser = argparse.ArgumentParser(description='Modify Termius application.')
     parser.add_argument('-search', '-S', nargs='+',
-                        help="Search for terms in JS files (use single quotes for each term).")
+                        help="Search for terms in JS and CSS files (use single quotes for each term).")
     parser.add_argument('-replace', '-R', action='store_true', help='Perform replacement using lang.txt.')
+    parser.add_argument('-css', '-C', action='store_true', help='Include CSS files in search and replacement.')
     args = parser.parse_args()
 
     termius_path = os.path.join(os.getenv('USERPROFILE'), 'AppData', 'Local', 'Programs', 'Termius', 'resources')
     modifier = TermiusModifier(termius_path)
 
+    # 如果没有提供 `-search` 或 `-replace` 参数，默认执行 `-replace`
+    if not (args.replace or args.search):
+        args.replace = True
+
+    # 更新 get_code_files 以根据参数包含 CSS 文件
+    code_files = modifier.get_code_files(include_css=args.css)
+
     if args.replace:
-        modifier.perform_replacement()
+        modifier.perform_replacement(include_css=args.css)
 
     elif args.search:
-        modifier.search_in_files(args.search, modifier.get_js_files())
-
-    # 默认执行替换
-    elif not (args.replace or args.search):
-        modifier.perform_replacement()
+        modifier.search_in_files(args.search, code_files)
 
     else:
         logging.error("Invalid command. Use '-search' or '-replace'.")

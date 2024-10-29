@@ -48,8 +48,8 @@
 ### 参数说明
 
 - `-replace` 或 `-R`：根据 `locales.txt` 文件执行字符串替换操作。
-- `-search` 或 `-S`：搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2`。
-
+- `-search` 或 `-S`：搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
+- `-css` 或 `-C`：搜索或替换的包含css文件。默认不包含。例如：`-search "term1" "term2" -css` ，在 Termius 的所有 JS 和 CSS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
 ### 目录结构
 
 ```
