@@ -63,7 +63,8 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 {LOCAL:"Local",REMOTE:"Remote",DYNAMIC:"Dynamic"}|{LOCAL:"本地",REMOTE:"远程",DYNAMIC:"动态"}
 ["Hostname", "Username"]|["主机名", "用户名"]
 ["Name","Date"]|["名称","日期"]
-#["grid","list"]|["表格","列表"]
+["grid","list"]|[{text:"表格",label:"grid"},{text:"列表",label:"list"}]
+qit.map(l=>p(ec,{dense:!0,icon:l==="grid"?p(iW,{}):p(sW,{}),endAdornment:o===l&&p(Vh,{}),onClick:()=>{s(l),a()},children:Oae(l)},l))|qit.map(l=>p(ec,{dense:!0,icon:l.label==="grid"?p(iW,{}):p(sW,{}),endAdornment:o===l.label&&p(Vh,{}),onClick:()=>{s(l.label),a()},children:l.text},l.label))
 
 children:"Font"|children:"字体"
 children:"Themes"|children:"主题"
@@ -1165,3 +1166,14 @@ message:`${wP.moving} ${r} to `|message:`${wP.moving} ${r} 到 `
 #字体修改, 根据自己的喜好, 包含css文件替换
 fontFamily:"monospace"|fontFamily:"hack,monospace"
 CircularXX|system-ui,-apple-system,BlinkMacSystemFont,Arial,CircularXX,sans-serif
+
+children:"CHANGELOG"|children:"更新日志"
+children:"RESTART"|children:"重启"
+title:`Change ${|title:`修改${
+label:`Old ${|label:`旧${
+label:`New ${|label:`新${
+"Username*"|"用户名*"
+placeholder:"Certificate"|placeholder:"证书"
+case"certificate":return"Certificate"|case"certificate":return"证书"
+case"charset":return"Encoding"|case"charset":return"编码"
+case"fido":return"FIDO2 Key"|case"fido":return"FIDO2密钥"
