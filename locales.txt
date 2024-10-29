@@ -1149,8 +1149,8 @@ singular:"key",plural:"keys"|singular:"密钥",plural:"密钥"
 singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已知主机"
 "There was a problem in the authorized_keys save process"|"authorized_keys保存过程中出现问题"
 "Incorrect format"|"格式不正确"
-" and "|" 和 "
-`${e} ${e>1?o:n}`|`${e} 个${e>1?o:n}`
+" and "|"和"
+`${e} ${e>1?o:n}`|` ${e} 个${e>1?o:n}`
 "Export to a host"|"导出到主机"
 "Save authorized_keys file"|"保存authorized_keys文件"
 "Export snippet"|"导出代码片段"
