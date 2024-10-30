@@ -1,14 +1,6 @@
 #离线版,非离线请删除以下配置
-bulkAccount(){return this.get(Tt.bulkAccount)}|async bulkAccount(){var e=await this.get(Tt.bulkAccount);e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];return e;}
-#const e=await this.api.bulkAccount();|var e=await this.api.bulkAccount();e.account.pro_mode=true;e.account.need_to_update_subscription=false;e.account.current_period={"from":"2024-10-01T00:00:00","until":"2099-01-01T00:00:00"};e.account.plan_type="Premium";e.account.user_type="Premium";e.student=null;e.trial=null;e.account.authorized_features.show_trial_section=false;e.account.authorized_features.show_subscription_section=true;e.account.authorized_features.show_github_account_section=false;e.account.expired_screen_type=null;e.personal_subscription={"now": new Date().toISOString().slice(0, -5),"status":"SUCCESS","platform":"stripe","current_period":{"from":"2024-10-01T00:00:00","until": "2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":"2024-10-01T00:00:00","updated_at":new Date().toISOString().slice(0, -5),"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false};e.access_objects=[{"period":{"start":"2024-10-01T00:00:00","end":"2099-01-01T00:00:00"},"title":"Pro"}];
-upgrade:{title:"Upgrade",icon:l}|upgrade:{title:"",icon:""}
+bulkAccount(){return this.get(Tt.bulkAccount)}|isObject(o){return o!=null&&typeof o==='object'&&!Array.isArray(o);}deepMerge(t,...s){s.forEach(s=>{if(s){Object.keys(s).forEach(k=>{let sv=s[k],tv=t[k];if(this.isObject(sv)&&this.isObject(tv))this.deepMerge(tv,sv);else if(Array.isArray(sv)&&Array.isArray(tv))t[k]=sv.concat(tv);else t[k]=sv;});}});return t;}async bulkAccount(){var e=await this.get(Tt.bulkAccount);var now=new Date().toISOString().slice(0, -5);var a={"account":{"pro_mode":true,"need_to_update_subscription":false,"current_period":{"from":now,"until":"2099-01-01T00:00:00"},"plan_type":"Premium","user_type":"Premium","authorized_features":{"show_trial_section":false,"show_subscription_section":true,"show_github_account_section":false,"multiple_vaults":true,"is_eligible_for_trial_extend":true},"expired_screen_type":null,"promotions":{"upgrade_to_business_via_vaults":false}},"personal_subscription":{"now":now,"status":"SUCCESS","platform":"stripe","current_period":{"from":now,"until":"2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":now,"updated_at":now,"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false},"access_objects":[{"period":{"start":now,"end":"2099-01-01T00:00:00"},"title":"Pro"}]};return this.deepMerge({},e,a);}
 ,e(s,{selected:p,onClick:b,children:"Request a Feature"}),|,
-#删除添加保管库按钮
-case"newVaultPromo":{x.push(Fie(()=>{s(),g(`${w} in Context Menu`,e)}));break}|
-case"newVault":{x.push(Die(()=>{s(),m(`${w} in Context Menu`,e)}));break}|
-case"newVaultPromo":{g.push(Fie(()=>u("Edit Form",e)));break}|
-case"newVault":{g.push(Die(()=>l("Edit Form",e)));break}|
-{children:[n("div",{className:o.divider}),n(Wr,{onClick:I,label:"Add vault",variant:f?"default":"withUpgradeIcon"})]}|{}
 #api.termius.com|localhost
 #/api/v4/bulk/account/|/api/v4/bulk/accountabc/
 #离线版配置结束
@@ -38,7 +30,7 @@ title:"Terminal"|title:"终端"
 title:"Shortcuts"|title:"快捷键"
 title:"Known Hosts"|title:"已知主机"
 title:"Keychain"|title:"密钥链"
-title:"Account"|title:"账户"
+title:"Account"|title:"账号"
 title:"Developer Tools"|title:"开发者工具"
 title:"QA Helpers"|title:"Q/A 帮助"
 title:"Invite People"|title:"邀请用户"
@@ -55,7 +47,7 @@ title:"Quick connect"|title:"快速连接"
 Contact your team admin to request access.`|请与你的团队管理员联系以请求访问权限。`
 "Please select at least one vault in the vault picker"|"请在保管库选择器中至少选择一个保管库"
 
-"Re-enter your "|"重新输入你的 "
+"Re-enter your "|"重新输入你的"
 "To enable this feature, please enter your Termius"|"要启用这个特性, 请输入你的Termius"
 "To enable access to the shared data, please enter your Termius"|"要打开这个分享数据的访问, 请输入你的Termius"
 "You can also do it later in settings."|"你也可以稍后在设置中执行此操作。"
@@ -71,7 +63,7 @@ children:"Themes"|children:"主题"
 "Enable Shared Groups"|"启用分享组"
 "Enable Access to Shared Groups"|"启用分享组访问"
 "Log out"|"退出登录"
-"Delete account"|"删除账户"
+"Delete account"|"删除账号"
 "Change "|"修改"
 "encryption password"|"密码"
 "Enable group sharing"|"启用组分享"
@@ -273,7 +265,7 @@ case"Experiments"|case"实验性"
 case"Shortcuts"|case"快捷键"
 case"Keychain"|case"密钥链"
 case"Terminal"|case"终端"
-case"Account"|case"账户"
+case"Account"|case"账号"
 case"Features"|case"新特性"
 
 label:"Bind address, 127.0.0.1 by default"|label:"绑定地址, 默认 127.0.0.1"
@@ -361,19 +353,19 @@ children:"Public Key"|children:"公钥"
 "Password:"|"密码:"
 "Add key"|"添加密钥"
 "You have no keys to select. Please import or paste a new key."|"你没有可选择的密钥。请导入或粘贴新密钥。"
-"We've credited your account with a free 14 day trial of Termius Premium. Get Termius on iOS or Android, and keep everything synced automatically."|"我们已为你的帐户提供Termius 高级版的14天免费试用。 在iOS或Android上获取Termius, 并自动保持所有同步。"
+"We've credited your account with a free 14 day trial of Termius Premium. Get Termius on iOS or Android, and keep everything synced automatically."|"我们已为你的账号提供Termius 高级版的14天免费试用。 在iOS或Android上获取Termius, 并自动保持所有同步。"
 `\n      An item named "${A}" already exists in this location. \n      Do you want to replace it with the one you are moving?\n    `|`\n     此目录已存在名为 "${A}" 的项目. \n      你确定要用你移动的覆盖它吗?\n    `
 "The parameters below will be applied to all hosts and subgroups in this group, unless you explicitly rewrite them."|"除非你明确重写它们, 否则以下参数将应用于该组中的所有主机和子组。"
 "Upload and download files using the integrated SFTP client. Easily accessible from the terminal on all devices."|"使用集成的SFTP客户端上传和下载文件。 可从所有设备上的终端轻松访问。"
 "How often (in milliseconds) to send SSH-level keepalive packets to the server. Set to 0 to disable."|"设置SSH的心跳包频率(以毫秒为单位)。设置为0以禁用。"
 "Please re-enter your Termius password to re-sync your data from our servers:"|"请重新输入你的Termius密码以重新同步来自我们服务器的数据："
-"We've credited your account with a free 14 day trial of Termius Premium."|"我们已为你的帐户提供Termius高级版的14天免费试用。"
+"We've credited your account with a free 14 day trial of Termius Premium."|"我们已为你的账号提供Termius高级版的14天免费试用。"
 "This password has previously appeared in a data breach and should never be used!"|"该密码以前曾出现在数据泄露中, 切勿使用！"
 "Unlock Termius Premium features such as SFTP, Snippets, Agent Forwarding,"|"解锁Termius 高级版功能, 例如SFTP, 代码片段, 代理转发, "
 "and sync the data across all your devices using E2EE sync."|" 并且在你所有设备之间同步数据, 使用 E2EE 同步"
 "Limit number of terminal rows. Set to 0 to maximum limit size."|"限制终端行数。 设置为0表示最大限制大小。"
 "Affects this device only, saved credentials will not be synced"|"仅影响此设备, 保存的凭据将不会同步"
-"Create an account to unlock all Premium features for 14 days."|"创建一个账户解锁所有高级版特性14天。"
+"Create an account to unlock all Premium features for 14 days."|"创建一个账号解锁所有高级版特性14天。"
 "Connecting to a host requires adding one to Termius first."|"连接到主机需要先要将其添加到向Termius。"
 "Enable notification bell (backend flag won't change)"|"启用通知铃声（后端标志不会更改）"
 "Manage Subscription":"Learn more about Premium"|"管理订阅":"了解更多关于高级版"
@@ -385,8 +377,8 @@ has been downloaded and will be automatically installed on exit`|退出时将会
 "New Terminals will use the selected theme, "|"新打开的终端将会使用选中主题, "
 "Select text to copy & Right click to paste"|"选中文本复制 & 右击鼠标粘贴"
 "email address. Enter your password to log in."|"电子邮件地址。输入密码登录。"
-"There’s already an account associated with this"|"已经有与此相关的帐户的"
-"Account with specified email is not registered"|"指定电子邮件的帐户未注册"
+"There’s already an account associated with this"|"已经有与此相关的账号的"
+"Account with specified email is not registered"|"指定电子邮件的账号未注册"
 "Select what type of data you want to import:"|"选择你要导入的数据类型："
 "Hide Hidden Files":"Show Hidden Files"|"隐藏隐藏文件":"显示隐藏文件"
 "Are you sure you want to remove this known host?"|"你确定要删除此主机吗？"
@@ -427,13 +419,13 @@ has been downloaded and will be automatically installed on exit`|退出时将会
 " at the end of trial period."|", 在试用期结束后"
 "Enable new virtualized list"|"启用新的虚拟列表"
 "Enable new connection flow"|"启用新的连接流程"
-"Continue without account"|"不登录账户继续使用"
+"Continue without account"|"不登录账号继续使用"
 "Hide Logs":"Show Logs"|"隐藏日志":"显示日志"
 "Enable new crypto system"|"启用新的加密系统"
 "SFTP is a Premium Feature"|"SFTP是高级版特性"
-"Continue":"Create account"|"继续":"创建账户"
+"Continue":"Create account"|"继续":"创建账号"
 "Edit Rule":"Add Rule"|"编辑规则":"新建规则"
-"Already have an account?"|"已经有账户了?"
+"Already have an account?"|"已经有账号了?"
 "Edit key":"Add key"|"编辑密钥":"添加密钥"
 "Backspace as Ctrl+H"|"Backspace 当作 Ctrl+H"
 "From Parent group":"Default"|"继承父组":"默认"
@@ -565,7 +557,7 @@ label:"Tags"|label:"标记"
 "All snippets"|"所有代码片段"
 "Username"|"用户名"
 `Arrange by:|`排序:
-"Account"|"账户"
+"Account"|"账号"
 "Hostname"|"主机名"
 :"Tags"),|:"标记"),
 "Login")|"登录")
@@ -607,7 +599,7 @@ label:"Tags"|label:"标记"
 "Get Started"|"开始使用"
 "Choose your way to get started"|"选择开始方式"
 "Save your time by adding your connection strings to connect with one click"|"节省时间: 通过添加连接字符串以一键连接"
-"Enter your "|"输入你的 "
+"Enter your"|"输入你的"
 S?"":"for"|""
 "Forgot password?"|"忘记密码?"
 "Add your first host"|"添加你的第一台主机"
@@ -634,19 +626,16 @@ S?"":"for"|""
 "cloud vault"|"云保管库"
 "Enable AI in Termius"|"在Termius中启用AI"
 "Generate Snippets and convert text to shell commands in the terminal"|"在终端中生成代码段并将文本转换为shell命令"
-"with AI. 1000 prompts per month free for users with an account"|"使用AI. 每月免费为有帐户的用户提供 1000 条提示"
+"with AI. 1000 prompts per month free for users with an account"|"使用AI. 每月免费为有账号的用户提供 1000 条提示"
 "Enable Terminal Sharing in Termius"|"在Termius中启用终端共享"
 "Share a terminal session with your teammates to troubleshoot issues together"|"与你的团队成员共享终端会话以便一起解决问题"
-"Create account"|"创建帐户"
+"Create account"|"创建账号"
 "to set up your encrypted cloud vault"|"设置加密的云保管库"
 "Backup, sync all you data in an encrypted cloud vault and access it from "|"备份, 同步加密的云保管库中的所有数据, 并从"
 "your mobile and desktop"|"你的移动设备和桌面设备"
 "to set up your team vault"|"设置你的团队保管库"
 "Already using Termius?"|"已经在使用Termius了吗?"
 "Log in"|"登录"
-prefix:"Continue with "|prefix:"继续使用 "
-"Continue with email"|"通过电子邮件继续"
-"Continue with Enterprise SSO"|"继续使用企业SSO"
 "About vault"|"关于保管库"
 "By continuing, you agree to the"|"继续, 即表示你同意"
 "Terms of Service"|"服务条款"
@@ -732,8 +721,8 @@ no_credentials_sharing:"No credentials",credentials_sharing:"Credentials"|no_cre
 "Network Engineers"|"网络工程师"
 "System admins"|"系统管理员"
 "DevOps"|"开发运营"
-"Snippets are predefined shell scripts. Add a snippet to conveniently run any command at any time."|"片段是预定义的Shell脚本。添加片段以随时方便运行任何命令。"
-"Ask Al to write a command for you"|"请Al为你编写一个命令"
+"Snippets are predefined shell scripts. Add a snippet to conveniently run any command at any time."|"代码片段是预定义的Shell脚本。添加代码片段以随时方便运行任何命令。"
+"Ask AI to write a command for you"|"请AI为你编写一个命令"
 "Save your top 5 commands as Snippets"|"将你的前5个命令保存为片段"
 "Termius can write the code for you!"|"Termius可以为你编写代码！"
 "Ok, got it"|"好的, 明白了"
@@ -1006,9 +995,10 @@ plural:"snippets"|plural:"代码片段"
 title:`Remove |title:`删除
 text:`Are you sure you want to remove |text:`你确定要删除
 
-
 "Choose where to store credentials"|"选择存储证书的位置"
-"Select how your teammates will access the items"|"选择你的成员访问项目的方式"
+"Select how your teammates will access the items"," "|"选择你的成员如何访问"
+[N(o),"."]|[N(o),"的项目."]
+
 "creating at"|"创建于"
 "moving to"|"移动到"
 "copying to"|"复制到"
@@ -1155,9 +1145,12 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Save authorized_keys file"|"保存authorized_keys文件"
 "Export snippet"|"导出代码片段"
 "Key Details Context Menu"|"Key Details Context Menu"
-} to`|}到`
+
+
 target:`${n} Vault`|target:`${n} 保管库`
-message:`${wP.moving} ${r} to `|message:`${wP.moving} ${r} 到 `
+`${e} ${fvt(t)} to`|`${e}${fvt(t)}到`
+moving} ${r} to `|moving}${r}到`
+} to`|}到`
 "Couldn’t get the link."|"无法获取链接。"
 "Something went wrong."|"出错了."
 "Something went wrong!"|"出错了!"
@@ -1185,3 +1178,51 @@ case"fido":return"FIDO2 Key"|case"fido":return"FIDO2密钥"
 "Organize your snippets in packages."|"在包中组织代码片段。"
 "Move snippets from root"|"从根目录移动代码片段"
 "Create snippet"|"创建代码片段"
+"Ask AI to write a command for you"|"让AI给你写一个命令"
+"Add most common commands for"|"添加最常用的命令"
+"Leave your feedback here..."|"在这里留下你的反馈…"
+"Leave feedback"|"留下反馈"
+"Enter vault name, e.g. Production..."|"输入保管库名称, 例如生产..."
+"Copy from"|"复制自"
+children:["Invite"|children:["邀请"
+children:"only"|children:"仅选择"
+"Confirm account deletion"|"确认删除账号"
+"Deleting an account will remove all of the data associated with this account. You will have 30 days to contact us in case you need to reverse this process."|"删除账号将删除与此账号关联的所有数据。如果需要撤消此过程，你将有30天的时间与我们联系。"
+"Please enter your ",f," to confirm."|"请输入你的",f,"进行确认。"
+"Unknown error"|"未知错误"
+"Confirm logout"|"确认退出"
+"Logging out will erase all local information on this device."|"退出将删除此设备上的所有本地信息。"
+"Log in again to access your cloud vault."|"再次登录以访问你的云保管库"
+"Sign up"|"注册"
+"Sign up with email"|"使用电子邮件注册"
+"Continue with email"|"使用电子邮件继续"
+"Continue with Enterprise SSO"|"使用企业SSO继续"
+"Continue with Google"|"使用Google账号继续"
+"Continue with Apple"|"使用Apple账号继续"
+"Don't have Termius vault yet?"|"还没有Termius保管库吗?"
+prefix:t,|prefix:t,suffix:m,
+`${t}Google`|`${t}Google${m}`
+`${t}Apple`|`${t}Apple${m}`
+prefix:"Continue with "|prefix:"使用",suffix:"账号继续"
+prefix:"Sign up with "|prefix:"使用",suffix:"账号注册"
+"By signing up, you agree to the Termius "|"通过注册，你将同意Termius"
+
+"This site is protected by reCAPTCHA and the Google"|"本网站受reCAPTCHA保护, 并适用Google"
+," and",|," 和",
+" apply."|"。"
+
+"Try Pro at no cost"|"免费试用Pro"
+children:["Join over "|children:["加入超过"
+" professionals"|"名专业人士的行列"
+"who save more than "|"每月节省超过"
+"6 hours and 19 minutes"|"6小时19分钟"
+"on connections every month"|"的连接时间"
+
+children:[t("strong",{children:"Backups"})," in a secure vault"]|children:["在安全保管库中",t("strong",{children:"备份"})]
+children:[t("strong",{children:"Sync"})," on unlimited devices ",t("br",{}),"on all platforms"]|children:["在所有平台上的","无限设备上",t("strong",{children:"同步"})]
+[t("strong",{children:"Advanced settings:"})," Agent Forwarding, ",t("br",{}),"Jump Host, HTTP Proxy"]|[t("strong",{children:"高级设置:"}),"代理转发, ",t("br",{}),"跳转主机, HTTP代理"]
+"Invitation link copied!"|"邀请链接已复制!"
+
+[M(l)," without credentials"]|["不使用凭据",l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l)]
+[M(l)," with credentials"]|["使用凭据",l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l)]
+[M(l)," and use MultiKey"]|[l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l),"并使用MultiKey"]
