@@ -1,6 +1,6 @@
 #离线版,非离线请删除以下配置
 bulkAccount(){return this.get(Tt.bulkAccount)}|isObject(o){return o!=null&&typeof o==='object'&&!Array.isArray(o);}deepMerge(t,...s){s.forEach(s=>{if(s){Object.keys(s).forEach(k=>{let sv=s[k],tv=t[k];if(this.isObject(sv)&&this.isObject(tv))this.deepMerge(tv,sv);else if(Array.isArray(sv)&&Array.isArray(tv))t[k]=sv.concat(tv);else t[k]=sv;});}});return t;}async bulkAccount(){var e=await this.get(Tt.bulkAccount);var now=new Date().toISOString().slice(0, -5);var a={"account":{"pro_mode":true,"need_to_update_subscription":false,"current_period":{"from":now,"until":"2099-01-01T00:00:00"},"plan_type":"Premium","user_type":"Premium","authorized_features":{"show_trial_section":false,"show_subscription_section":true,"show_github_account_section":false,"multiple_vaults":true,"is_eligible_for_trial_extend":true},"expired_screen_type":null,"promotions":{"upgrade_to_business_via_vaults":false}},"personal_subscription":{"now":now,"status":"SUCCESS","platform":"stripe","current_period":{"from":now,"until":"2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":now,"updated_at":now,"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false},"access_objects":[{"period":{"start":now,"end":"2099-01-01T00:00:00"},"title":"Pro"}]};return this.deepMerge({},e,a);}
-,e(s,{selected:p,onClick:b,children:"Request a Feature"}),|,
+,e(s,{selected:p,onClick:v,children:"Request a Feature"}),|,
 #api.termius.com|localhost
 #/api/v4/bulk/account/|/api/v4/bulk/accountabc/
 #离线版配置结束
@@ -56,7 +56,7 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 ["Hostname", "Username"]|["主机名", "用户名"]
 ["Name","Date"]|["名称","日期"]
 ["grid","list"]|[{text:"表格",label:"grid"},{text:"列表",label:"list"}]
-qit.map(l=>p(ec,{dense:!0,icon:l==="grid"?p(iW,{}):p(sW,{}),endAdornment:o===l&&p(Vh,{}),onClick:()=>{s(l),a()},children:Oae(l)},l))|qit.map(l=>p(ec,{dense:!0,icon:l.label==="grid"?p(iW,{}):p(sW,{}),endAdornment:o===l.label&&p(Vh,{}),onClick:()=>{s(l.label),a()},children:l.text},l.label))
+map(l=>p(ec,{dense:!0,icon:l==="grid"?p(iW,{}):p(aW,{}),endAdornment:o===l&&p(Vh,{}),onClick:()=>{a(l),s()},children:Pse(l)},l))|map(l=>p(ec,{dense:!0,icon:l.label==="grid"?p(iW,{}):p(aW,{}),endAdornment:o===l.label&&p(Vh,{}),onClick:()=>{a(l.label),s()},children:l.text},l.label))
 
 children:"Font"|children:"字体"
 children:"Themes"|children:"主题"
@@ -1038,7 +1038,7 @@ name:`with |name:`使用
 singular:"a group"|singular:"组"
 plural:"groups"|plural:"组"
 singular:"a host"|singular:"主机"
-plural:"hosts"|singular:"主机"
+plural:"hosts"|plural:"主机"
 `You are going to remove |`你将删除
 singular:"this group"|singular:"这个组"
 plural:"these groups"|plural:"这些组"
@@ -1148,6 +1148,7 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 
 
 target:`${n} Vault`|target:`${n} 保管库`
+`${e} ${mvt(t)} to`|`${e}${mvt(t)}到`
 `${e} ${fvt(t)} to`|`${e}${fvt(t)}到`
 moving} ${r} to `|moving}${r}到`
 } to`|}到`
@@ -1226,3 +1227,15 @@ children:[t("strong",{children:"Sync"})," on unlimited devices ",t("br",{}),"on 
 [M(l)," without credentials"]|["不使用凭据",l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l)]
 [M(l)," with credentials"]|["使用凭据",l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l)]
 [M(l)," and use MultiKey"]|[l==="move"?"移动":l==="copy"?"复制":l==="create"?"创建":l==="import"?"导入":M(l),"并使用MultiKey"]
+
+#20241105新增
+singular:"Port Forwarding Rule",plural:"Port Forwarding Rules"|singular:"端口转发规则",plural:"端口转发规则"
+"Unknown port forwarding type"|"未知的端口转发类型"
+"New Port Forwarding Rule"|"新建端口转发规则"
+"Move or remove port forwarding?"|"移动或删除端口转发?"
+"Hosts are used in the following port forwarding rules."|"主机用于以下端口转发规则."
+"Move the rules to the same vault as well?"|"将规则也移动到同一个保管库中吗?"
+"The link was copied"|"链接已复制"
+single:"host"|single:"主机"
+singular:"Host"|singular:"主机"
+single:"snippet"|single:"代码片段"
