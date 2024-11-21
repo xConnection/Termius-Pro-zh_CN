@@ -441,7 +441,7 @@ has been downloaded and will be automatically installed on exit`|退出时将会
 "Where are you coming from?"|"从那里导入？"
 "AWS and Digital Ocean"|"AWS 和 Digital Ocean"
 "Sync Keys & Passwords"|"同步 密钥 和 密码"
-`Do you want to delete|`你确定想要删除
+`Do you want to delete |`你确定想要删除
 "Start by adding a host"|"从添加主机开始"
 "SSH Agent Forwarding"|"SSH 代理转发"
 "Import from AWS, DO*"|"从AWS导入, DO*"
@@ -1411,3 +1411,18 @@ children:"Broadcast input"|children:"广播输入"
 "Termius update is ready!"|"Termius更新已准备就绪！"
 `The ${(e==null?void 0:e.version)??"new"} version of Termius is ready to be installed. Click the ”Restart” button to apply the changes and restart the app.`|`Termius的${(e==null?void 0:e.version)??"新"}版本已准备好安装. 单击“重启”按钮应用更改并重新启动应用程序.`
 "Invalid Configuration: Missing Region"|"配置无效: 缺少区域"
+
+"1 session is disconnected"|"1个会话已断开"
+/`\$\{([^}]+)\} sessions are disconnected`/|`${\g<1>}个会话已断开`
+" Initiating reconnection..."|" 开始重新连接..."
+/"Close terminals?"/|"关闭终端"
+children:["Reconnect"|children:["重新连接"
+"File already exists"|"文件已存在"
+/`An item named "\$\{([^}]+)\}" already exists in this location.`/|`此位置中已存在名为"${\g<1>}"的项目。`
+"Do you want to replace it with the one you are moving?"|"你想用你正在移动的那个替换它吗?"
+"Drop files here"|"将文件拖放到此处"
+title:"Error"|title:"错误"
+"No such file"|"没有此文件"
+"Confirm"|"确认"
+name:"Reconnect"|name:"重新连接"
+children:"Reconnect"|children:"重新连接"
