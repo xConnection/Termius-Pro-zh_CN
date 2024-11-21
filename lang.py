@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -40,8 +41,16 @@ def read_file(file_path, strip_empty=True):
         return None
 
 
-def search_in_files(search_terms, code_files):
+def search_in_files(modifier, search_terms, include_css=False):
     """在文件中搜索字符串并打印结果。"""
+
+    # 根据参数是否包含 CSS 文件
+    code_files = modifier.get_code_files(include_css)
+    app_path = f"{modifier.termius_path}/app"
+
+    if not os.path.exists(app_path):
+        modifier.decompress_asar()
+
     found_files = []
     for file_path in code_files:
         file_content = read_file(file_path, strip_empty=False)
@@ -98,7 +107,11 @@ class TermiusModifier:
                 continue
             if "|" in lang:
                 old_value, new_value = lang.split("|", 1)
-                file_content = file_content.replace(old_value, new_value)
+                if old_value.startswith('/') and old_value.endswith('/') and not old_value.startswith('//') and not old_value.endswith('//'):
+                    regex = re.compile(old_value[1:-1])
+                    file_content = regex.sub(new_value, file_content)
+                else:
+                    file_content = file_content.replace(old_value, new_value)
             else:
                 logging.error(f"Skipping invalid entry: {lang}")
 
@@ -210,13 +223,10 @@ def main():
     if not (args.replace or args.search):
         args.replace = True
 
-    # 更新 get_code_files 以根据参数包含 CSS 文件
-    code_files = modifier.get_code_files(include_css=args.css)
-
     if args.replace:
         modifier.perform_replacement(include_css=args.css)
     elif args.search:
-        search_in_files(args.search, code_files)
+        search_in_files(modifier, args.search, args.css)
     else:
         logging.error("Invalid command. Use '-search' or '-replace'.")
 
