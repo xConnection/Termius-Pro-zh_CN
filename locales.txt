@@ -1,12 +1,12 @@
 #离线版,非离线请删除以下配置
-bulkAccount(){return this.get(Tt.bulkAccount)}|isObject(o){return o!=null&&typeof o==='object'&&!Array.isArray(o);}deepMerge(t,...s){s.forEach(s=>{if(s){Object.keys(s).forEach(k=>{let sv=s[k],tv=t[k];if(this.isObject(sv)&&this.isObject(tv))this.deepMerge(tv,sv);else if(Array.isArray(sv)&&Array.isArray(tv))t[k]=sv.concat(tv);else t[k]=sv;});}});return t;}async bulkAccount(){var e=await this.get(Tt.bulkAccount);var now=new Date().toISOString().slice(0, -5);var a={"account":{"pro_mode":true,"need_to_update_subscription":false,"current_period":{"from":now,"until":"2099-01-01T00:00:00"},"plan_type":"Premium","user_type":"Premium","authorized_features":{"show_trial_section":false,"show_subscription_section":true,"show_github_account_section":false,"multiple_vaults":true,"is_eligible_for_trial_extend":true},"expired_screen_type":null,"promotions":{"upgrade_to_business_via_vaults":false}},"personal_subscription":{"now":now,"status":"SUCCESS","platform":"stripe","current_period":{"from":now,"until":"2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":now,"updated_at":now,"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false},"trial":{"valid_until":"2099-01-01T00:00:00"},"access_objects":[{"period":{"start":now,"end":"2099-01-01T00:00:00"},"title":"Pro"}]};return this.deepMerge({},e,a);}
+/bulkAccount\(\)\{return this\.get\(([^\.]+)\.bulkAccount\)\}/|isObject(o){return o!=null&&typeof o==='object'&&!Array.isArray(o);}deepMerge(t,...s){s.forEach(s=>{if(s){Object.keys(s).forEach(k=>{let sv=s[k],tv=t[k];if(this.isObject(sv)&&this.isObject(tv))this.deepMerge(tv,sv);else if(Array.isArray(sv)&&Array.isArray(tv))t[k]=sv.concat(tv);else t[k]=sv;});}});return t;}async bulkAccount(){var e=await this.get(\g<1>.bulkAccount);var now=new Date().toISOString().slice(0, -5);var a={"account":{"pro_mode":true,"need_to_update_subscription":false,"current_period":{"from":now,"until":"2099-01-01T00:00:00"},"plan_type":"Premium","user_type":"Premium","authorized_features":{"show_trial_section":false,"show_subscription_section":true,"show_github_account_section":false,"multiple_vaults":true,"is_eligible_for_trial_extend":true},"expired_screen_type":null,"promotions":{"upgrade_to_business_via_vaults":false}},"personal_subscription":{"now":now,"status":"SUCCESS","platform":"stripe","current_period":{"from":now,"until":"2099-01-01T00:00:00"},"revokable":true,"refunded":false,"cancelable":true,"reactivatable":false,"currency":"usd","created_at":now,"updated_at":now,"valid_until":"2099-01-01T00:00:00","auto_renew":true,"price":12.0,"verbose_plan_name":"Termius Pro Monthly","plan_type":"SINGLE","is_expired":false},"access_objects":[{"period":{"start":now,"end":"2099-01-01T00:00:00"},"title":"Pro"}]};return this.deepMerge({},e,a);}
 /,e\([^\)]+"Request a Feature"}\),/|,
 #api.termius.com|localhost
 #"/api/v4/bulk/account/"|"/api/v4/bulk/accountabc/"
 #离线版配置结束
 
 #开启调试
-...Co(!1,[{label:"Termius Dev Tools"|...Co(!0,[{label:"Termius Dev Tools"
+/\.\.\.([a-zA-Z]+)\(\!1,\[\{label:"Termius Dev Tools"/|...\g<1>(!0,[{label:"Termius Dev Tools"
 "Termius Dev Tools"|"Termius开发者工具"
 "Background Dev Tools"|"后台开发者工具"
 "Focused Window Dev Tools"|"当前窗口的开发者工具"
@@ -1432,9 +1432,36 @@ children:"Reconnect"|children:"重新连接"
 "Clear"|"清除"
 "More than 16 hosts selected"|"已选择16台以上的主机"
 "The file has an incorrect format"|"文件格式不正确"
-/ownerState:([^,]+),children:([^\?]+)\?([a-zA-Z]+)\("span",{children:([a-zA-Z]+)}\)/|ownerState:\g<1>,children:\g<2>?\g<3>("span",{children:\g<4>==="Password:"?"密码:":\g<4>})
-/{htmlFor:([^,]+),id:([a-zA-Z]+)},([a-zA-Z]+),{children:([a-zA-Z]+)}/|{htmlFor:\g<1>,id:\g<2>},\g<3>,{children:\g<4>==="Password:"?"密码:":\g<4>}
+/ownerState:([^,]+),children:([^\?]+)\?([a-zA-Z]+)\("span",{children:([a-zA-Z]+)}\)/|ownerState:\g<1>,children:\g<2>?\g<3>("span",{children:\g<4>==="Password:"?"密码:":typeof \g<4>==="string"?\g<4>.replace(/Password for ([^:]+):/, "$1的密码:"):\g<4>})
+/{htmlFor:([^,]+),id:([a-zA-Z]+)},([a-zA-Z]+),{children:([a-zA-Z]+)}/|{htmlFor:\g<1>,id:\g<2>},\g<3>,{children:\g<4>==="Password:"?"密码:":typeof \g<4>==="string"?\g<4>.replace(/Password for ([^:]+):/, "$1的密码:"):\g<4>}
 
 "Increase terminal font size"|"增加终端字体大小"
 "Decrease terminal font size"|"减小终端字体大小"
 "Reset terminal font size to default"|"将终端字体大小重置为默认值"
+
+"Activate autocomplete"|"激活自动完成"
+"Enabling autocomplete..."|"正在启用自动完成..."
+"Couldn't activate autocomplete"|"无法激活自动完成"
+"Something went wrong. Try again."|"出错了，请重试。"
+"Too many attempts. Try later."|"尝试次数过多，请稍后再试。"
+"AI could not generate results."|"AI无法产生结果。"
+"A command was successfully generated out of a prompt"|"根据提示成功生成命令"
+"A command was not generated out of a prompt"|"命令不是根据提示生成的"
+"Do not allow to type in assistant input during generation"|"不允许在生成过程中输入辅助输入"
+"A user has dismissed generation suggestion"|"用户已拒绝生成建议"
+"User sent a prompt to AI and the request was rejected"|"用户向AI发送提示，请求被拒绝"
+"A user closes autocomplete popup or there are no suggestions to offer."|"用户关闭自动完成弹出窗口或没有提供任何建议。"
+"A special state for dismissed autocomplete popup. It is used to have ability to turn back to the previous active state by pressing Tab key"|"关闭自动完成弹出窗口的特殊状态。它能够通过按Tab键返回到之前的活动状态"
+"Join our discord channel to get latest updates and share your feedback."|"加入我们的discord频道以获取最新更新并分享你的反馈。"
+"Join Discord"|"加入Discord"
+/`Enabled \(\${([^}]+)}\)`/|`已启用(${\g<1>})`
+
+"The group will contain:"|"该组将包含:"
+"jump hosts"|"跳转主机"
+fieldName:"proxy"|fieldName:"代理"
+/" hosts"([^"]+)" reuse this "/|"个主机"\g<1>"重用此"
+"Create a group for easier update"|"创建分组以便于更新"
+
+"Password autocomplete popup is visible"|"密码自动完成弹出窗口可见"
+"Inherited Password"|"继承的密码"
+/`Password reset failed with status \${([^}]+)}`/|`密码重置失败，状态为${\g<1>}`
