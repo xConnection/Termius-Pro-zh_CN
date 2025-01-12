@@ -12,9 +12,9 @@
 
 1. 安装
 
-   - 确保你已经安装了以下工具：
-     - Python
-     - `asar` 工具(用于处理 asar 文件)，可以通过 `npm install -g asar` 安装。
+    - 确保你已经安装了以下工具：
+        - Python
+        - `asar` 工具(用于处理 asar 文件)，可以通过 `npm install -g asar` 安装。
 
 2. 运行脚本
     ```sh
@@ -28,7 +28,10 @@
 如果没有`python`环境，可以手动汉化。
 
 1. 前往 [releases](https://github.com/ArcSurge/Termius-Pro-zh_CN/releases) 下载对应版本的 `app.asar` 文件。
-2. 找到 Termius 安装目录，通常位置为 `C:\Users\你的用户名\AppData\Local\Programs\Termius`。
+2. 找到 Termius 安装目录，通常位置为
+    - **Windows**: `C:\Users\你的用户名\AppData\Local\Programs\Termius`。
+    - **Linux**: `/opt/Termius`。
+    - **MacOS**: `/Applications/Termius.app/Contents`。
 3. 将下载的 `app.asar` 文件覆盖 `resources` 文件夹下的 `app.asar` 文件。
 4. 如果你不想自动更新，请删除 `app-update.yml` 文件。
 
@@ -42,24 +45,27 @@
 
 ### 功能
 
-- **字符串替换**：根据提供的语言文件 `locales.txt` 替换 Termius 界面上的字符串。
+- **字符串替换**：根据提供的语言文件 `locales.txt` 或 `crack.txt` 替换 Termius 界面上的字符串。
 - **文件搜索**：搜索指定的字符串，并显示包含这些字符串的文件路径。
 
 ### 参数说明
 
-- `-replace` 或 `-R`：根据 `locales.txt` 文件执行字符串替换操作。
-- `-search` 或 `-S`：搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
-- `-css` 或 `-C`：搜索或替换的包含css文件。默认不包含。例如：`-search "term1" "term2" -css` ，在 Termius 的所有 JS 和 CSS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
+- `-replace` 或 `-R`: 根据 `locales.txt` 或 `crack.txt` 文件执行字符串替换操作。
+- `-search` 或 `-S`: 搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
+- `-css` 或 `-C`: 搜索或替换的包含css文件，默认不包含。例如：`-search "term1" "term2" -css` ，在 Termius 的所有 JS 和 CSS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
+- `-crack` 或 `-K`: 替换包含 `crack.txt` 文件，默认不包含。
 ### 目录结构
 
 ```
 project/
+├── crack.txt
 ├── locales.txt
 └── lang.py
 ```
 
-- `locales.txt`：包含需要替换的语言字符串。
-- `lang.py`：主脚本文件。
+- `crack.txt`: 包含消除 Pro 相关的替换。
+- `locales.txt`: 包含需要替换的语言字符串。
+- `lang.py`: 主脚本文件。
 
 ## 声明
 
