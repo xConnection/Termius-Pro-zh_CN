@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import argparse
 import logging
 import os
@@ -12,6 +13,9 @@ from tkinter import filedialog
 # 设置日志配置
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+INCLUDE_CSS = False
+LOAD_CRACK = False
+
 
 def run_command(cmd, shell=False):
     """运行命令并处理异常。"""
@@ -20,10 +24,13 @@ def run_command(cmd, shell=False):
         subprocess.run(cmd, shell=shell, check=True)
     except subprocess.CalledProcessError as e:
         logging.error(f"Command failed with error: {e}")
+        sys.exit(1)
     except FileNotFoundError:
         logging.error(f"Command not found: {cmd}")
+        sys.exit(1)
     except Exception as e:
         logging.error(f"Error running command: {cmd} - {e}")
+        sys.exit(1)
 
 
 def read_file(file_path, strip_empty=True):
@@ -35,17 +42,17 @@ def read_file(file_path, strip_empty=True):
             return file.read()
     except FileNotFoundError:
         logging.error(f"File not found: {file_path}")
-        return None
+        sys.exit(1)
     except Exception as e:
         logging.error(f"Error reading file: {file_path} - {e}")
-        return None
+        sys.exit(1)
 
 
-def search_in_files(modifier, search_terms, include_css=False):
+def search_in_files(modifier, search_terms):
     """在文件中搜索字符串并打印结果。"""
 
-    # 根据参数是否包含 CSS 文件
-    code_files = modifier.get_code_files(include_css)
+    # 根据全局变量是否包含 CSS 文件
+    code_files = modifier.get_code_files()
     app_path = f"{modifier.termius_path}/app"
 
     if not os.path.exists(app_path):
@@ -74,6 +81,14 @@ class TermiusModifier:
         self.cn_lang = read_file(lang_file)
         if not self.cn_lang:
             logging.error("Failed to load language file.")
+            sys.exit(1)
+
+        if LOAD_CRACK:
+            crack_content = read_file("crack.txt", strip_empty=False)
+            if crack_content:
+                self.cn_lang.extend(crack_content.splitlines())
+            else:
+                logging.error("Failed to load crack file.")
 
     def decompress_asar(self):
         cmd = f"asar extract {self.termius_path}/app.asar {self.termius_path}/app"
@@ -128,7 +143,7 @@ class TermiusModifier:
             with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(content)
 
-    def get_code_files(self, include_css=False):
+    def get_code_files(self):
         """获取所有代码文件路径（包含 .code 和可选的 .css 文件）。"""
         prefix_links = [
             os.path.join(self.termius_path, 'app', 'background-process', 'assets'),
@@ -138,13 +153,13 @@ class TermiusModifier:
         code_files = []
         for prefix in prefix_links:
             for root, _, files in os.walk(prefix):
-                if include_css:
+                if INCLUDE_CSS:
                     code_files.extend([os.path.join(root, f) for f in files if f.endswith(('.js', '.css'))])
                 else:
                     code_files.extend([os.path.join(root, f) for f in files if f.endswith(".js")])
         return code_files
 
-    def perform_replacement(self, include_css=False):
+    def perform_replacement(self):
         """执行字符串替换的所有步骤。"""
         self.backup_asar()
         app_path = f"{self.termius_path}/app"
@@ -155,7 +170,7 @@ class TermiusModifier:
             self.decompress_asar()
 
         self.load_cn_lang()
-        code_files = self.get_code_files(include_css=include_css)
+        code_files = self.get_code_files()
 
         self.load_files(code_files)
         self.replace_strings_in_files()
@@ -184,19 +199,23 @@ def select_directory(title):
         return selected_path if is_valid_path(selected_path) else None
     except Exception as e:
         logging.error(f"An error occurred: {e}")
-        return None
+        sys.exit(1)
 
 
 def get_termius_path():
     """获取 Termius 的路径。"""
     default_paths = {
-        'Windows': os.path.join(os.getenv('USERPROFILE'), 'AppData', 'Local', 'Programs', 'Termius', 'resources'),
-        'Darwin': '/Applications/Termius.app/Contents/Resources',
-        'Linux': '/usr/share/termius'
+        'Windows': lambda: os.path.join(os.getenv('USERPROFILE'), 'AppData', 'Local', 'Programs', 'Termius', 'resources'),
+        'Darwin': lambda: '/Applications/Termius.app/Contents/Resources',
+        'Linux': lambda: '/opt/Termius/resources'
     }
     system = platform.system()
-    termius_path = default_paths.get(system)
+    path_generator = default_paths.get(system)
 
+    if path_generator:
+        termius_path = path_generator()  # 调用 lambda 函数生成路径
+    else:
+        raise NotImplementedError(f"不支持的操作系统: {system}")
     if not is_asar_exists(termius_path):
         logging.error(f"Termius app.asar file not found at: {os.path.join(termius_path, 'app.asar')}")
         logging.info("Please select the correct Termius folder.")
@@ -208,12 +227,24 @@ def get_termius_path():
     return termius_path
 
 
+def check_asar_installed():
+    """检查是否安装了 asar 命令。"""
+    run_command("asar --version", shell=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Modify Termius application.')
     parser.add_argument('-search', '-S', nargs='+', help="Search for terms in JS and CSS files.")
     parser.add_argument('-replace', '-R', action='store_true', help='Perform replacement using lang.txt.')
     parser.add_argument('-css', '-C', action='store_true', help='Include CSS files in search and replacement.')
+    parser.add_argument('-crack', '-K', action='store_true', help='Load crack.txt file.')
     args = parser.parse_args()
+
+    global INCLUDE_CSS, LOAD_CRACK
+    INCLUDE_CSS = args.css
+    LOAD_CRACK = args.crack
+
+    check_asar_installed()
 
     termius_path = get_termius_path()
 
@@ -224,9 +255,9 @@ def main():
         args.replace = True
 
     if args.replace:
-        modifier.perform_replacement(include_css=args.css)
+        modifier.perform_replacement()
     elif args.search:
-        search_in_files(modifier, args.search, args.css)
+        search_in_files(modifier, args.search)
     else:
         logging.error("Invalid command. Use '-search' or '-replace'.")
 
