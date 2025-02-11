@@ -19,6 +19,9 @@
 "Close run"|"关闭运行"
 "Executed":"Executing..."|"已执行":"正在执行..."
 
+title:"Pro",pricePer|title:"专业版",pricePer
+title:"Team",pricePer|title:"团队版",pricePer
+title:"Business",pricePer|title:"企业版",pricePer
 title:"Terminal"|title:"终端"
 title:"Shortcuts"|title:"快捷键"
 title:"Known Hosts"|title:"已知主机"
@@ -801,9 +804,8 @@ no_credentials_sharing:"No credentials",credentials_sharing:"Credentials"|no_cre
 "Key"|"密钥"
 "Address"|"地址"
 "Search"|"搜索"
-"Business"|"商业版"
+#"Business"|"企业"
 "Manage"|"管理"
-"Version"|"版本"
 "Light"|"明亮"
 "Dark"|"暗黑"
 "Keychain"|"密钥链"
@@ -1296,8 +1298,8 @@ children:["Manage hosts in a group by setting common",p("br",{}),"parameters for
 singular:"Entity",plural:"Entities"|singular:"实体",plural:"实体"
 singular:"identity",plural:"identities"|singular:"身份",plural:"身份"
 `${t.snippets_count} snippet`:`${t.snippets_count} snippets`|`${t.snippets_count} 个代码片段`:`${t.snippets_count} 个代码片段`
-`${t.children_hosts.length} host${t.children_hosts.length!==1?"s":""}`|`${t.children_hosts.length} 个主机}`
-`${t.snippets_count} snippet${t.snippets_count!==1?"s":""}`|`${t.snippets_count} 个代码片段}`
+`${t.children_hosts.length} host${t.children_hosts.length!==1?"s":""}`|`${t.children_hosts.length} 个主机`
+`${t.snippets_count} snippet${t.snippets_count!==1?"s":""}`|`${t.snippets_count} 个代码片段`
 "Move snippets from the root"|"从根目录移动代码片段"
 `From ${e.host_label}:${e.local_port}`|`从${e.host_label}:${e.local_port}`
 `${t} to ${e.hostname}:${e.remote_port}`|`${t}到${e.hostname}:${e.remote_port}`
@@ -1512,3 +1514,42 @@ children:"Security"|children:"安全"
 "View instructions"|"查看说明"
 "New Window"|"新窗口"
 "Create a new window"|"创建一个新窗口"
+
+"Upgrade now to keep your work uninterrupted"|"立即升级以确保你的工作不被中断"
+"Upgrade to get more from Termius"|"升级以从Termius中获得更多功能"
+/i\("span",{(.*?),children:\[([^,]+)," "\]}\),"of your full Termius experience"/|"你完整体验Termius",i("span",{\g<1>,children:[\g<2>]})
+/`\${([^}]+)} days left`:"Last day"/|`还剩${\g<1>}天`:"的最后一天"
+children:"Recommended"|children:"推荐"
+"when billed annually"|"按年计费时"
+"seat / month"|"用户/月"
+"Sync to Unlimited Devices"|"同步到无限设备"
+"Tunneling"|"隧道"
+"One team vault"|"一个团队保管库"
+"Team Enhanced security"|"团队增强的安全性"
+"Single Shared Vault"|"单一共享的保管库"
+"Real-time collaboration"|"实时协作"
+"Multiple team vaults"|"多个团队保管库"
+"Multiple Shared Vaults"|"多个保管库"
+"SOC2 Type II Report"|"SOC2类型II报告"
+"Enterprise SSO"|"企业SSO登录"
+"Try free for 14 days"|"免费试用14天"
+"Buy Pro"|"购买专业版"
+"Buy Team"|"购买团队版"
+"Buy Business"|"购买企业版"
+"get a quote"|"获取报价"
+"restore purchase"|"恢复购买"
+"or "|"或"
+"Or use Termius for free with "|"或免费使用Termius通过"
+"For professionals responsible for keeping the infrastructure up and running 24/7"|"适合负责保持基础设施24/7正常运行的专业人士"
+"For teams that need to manage infrastructure together and stay on the same page"|"适合需要共同管理基础设施并保持一致的团队"
+"For companies that need to tighten their security and compliance"|"对于需要加强安全和合规性的公司"
+"You will be able to switch to Starter and keep all your data after the trial period ends."|"试用期结束后，你将能够切换到Starter并保留所有数据。"
+"Enjoy the rest of free trial with the peace of mind."|"安心享受剩下的免费试用吧。"
+"Back to all plans"|"回到所有计划"
+`You still have ${r} days left on your free trial ⏳`|`你的免费试用还剩 ${r} 天⏳`
+"Choose your billing period"|"选择你的计费周期"
+"Buy now"|"立即购买"
+"Invite your teammates"|"邀请你的成员"
+"Manage infrastructure together in shared team vaults."|"在共享团队保管库中一起管理基础架构。"
+"Keep your teammates on the same page and boost their productivity."|"让你的成员保持一致并提高他们的生产力。"
+"+ Add another"|"+ 添加另一个"
