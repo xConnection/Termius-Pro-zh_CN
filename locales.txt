@@ -580,8 +580,6 @@ label:"Tags"|label:"标记"
 "Size "|"大小 "
 "Stop"|"停止"
 "Create"|"创建"
-#"Personal"|"个人"
-"Team"|"团队"
 "Settings"|"设置"
 "Team Information"|"团队信息"
 "Team name: "|"团队名: "
@@ -1144,9 +1142,9 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Key Details Context Menu"|"Key Details Context Menu"
 
 
-target:`${n} Vault`|target:`${n} 保管库`
-/`\$\{([^}]+)\} to`/|`${\g<1>}到`
-/`\$\{([^}]+)\} \$\{([^}]+)\} to ?`/|`${\g<1>}${\g<2>}到`
+/target:`\${([^}]+)} Vault`/|target:`${\g<1>} 保管库`
+/`\${([^}]+)} to`/|`${\g<1>}到`
+/`\${([^}]+)} \${([^}]+)} to ?`/|`${\g<1>}${\g<2>}到`
 
 "Couldn’t get the link."|"无法获取链接。"
 "Something went wrong."|"出错了."
@@ -1300,6 +1298,7 @@ singular:"identity",plural:"identities"|singular:"身份",plural:"身份"
 `${t.snippets_count} snippet`:`${t.snippets_count} snippets`|`${t.snippets_count} 个代码片段`:`${t.snippets_count} 个代码片段`
 `${t.children_hosts.length} host${t.children_hosts.length!==1?"s":""}`|`${t.children_hosts.length} 个主机`
 `${t.snippets_count} snippet${t.snippets_count!==1?"s":""}`|`${t.snippets_count} 个代码片段`
+${n?"snippets":"snippet"}`|个代码片段`
 "Move snippets from the root"|"从根目录移动代码片段"
 `From ${e.host_label}:${e.local_port}`|`从${e.host_label}:${e.local_port}`
 `${t} to ${e.hostname}:${e.remote_port}`|`${t}到${e.hostname}:${e.remote_port}`
@@ -1553,3 +1552,34 @@ children:"Recommended"|children:"推荐"
 "Manage infrastructure together in shared team vaults."|"在共享团队保管库中一起管理基础架构。"
 "Keep your teammates on the same page and boost their productivity."|"让你的成员保持一致并提高他们的生产力。"
 "+ Add another"|"+ 添加另一个"
+
+title:"Recent connections"|title:"最近的连接"
+label:"Create a workspace"|label:"创建工作区"
+label:"Restore"|label:"恢复"
+"Shared":"Personal"|"共享":"个人"
+children:"Recent sessions"|children:"最近的会话"
+"Your recent sessions will be visible here."|"你最近的会话将在此处可见。"
+/`In the mean time, start connecting with \${([^}]+)}`/|`同时，使用 ${\g<1>} 开始连接`
+"Open your email for verification"|"打开你的电子邮件进行验证"
+"For extra security, we sent you a verification email to"|"为了提高安全性，我们向你发送了一封验证电子邮件"
+"I have verified this device"|"我已经验证了这个设备"
+"Didn't get email?"|"没有收到电子邮件？"
+"Contact us"|"联系我们"
+"Now you can share groups with your team to make sure your team is up-to-date with the latest changes in the configuration."|"现在，你可以与你的团队共享组，以确保你的团队掌握最新的配置更改。"
+"Your team has been configured!"|"你的团队已配置!"
+
+children:"Personal"|children:"个人"
+name:"Personal"|name:"个人"
+title:"Team"|title:"团队"
+
+placeholder:"New Workspace"|placeholder:"新建工作区"
+"Workspace templates"|"工作区模板"
+"New Workspace Template"|"新建工作区模板"
+"The workspace was changed"|"工作区已更改"
+"Save changes to the workspace."|"保存对工作区的更改。"
+"Save to template"|"保存到模板"
+"Save a workspace template?"|"保存工作区模板吗？"
+"Create a template of this workspace to easily reuse it."|"创建此工作区的模板以方便重复使用。"
+"Save a template"|"保存模板"
+"Workspace Tab"|"工作区选项卡"
+"New Tab Screen"|"新建选项卡屏幕"
