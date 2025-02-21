@@ -50,7 +50,6 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 
 {LOCAL:"Local",REMOTE:"Remote",DYNAMIC:"Dynamic"}|{LOCAL:"本地",REMOTE:"远程",DYNAMIC:"动态"}
 ["Hostname", "Username"]|["主机名", "用户名"]
-["Name","Date"]|["名称","日期"]
 ["grid","list"]|[{text:"表格",label:"grid"},{text:"列表",label:"list"}]
 #/map\(([a-zA-Z]+)=>p\(([a-zA-Z]+),\{dense:!0,icon:\1==="grid"\?p\(([a-zA-Z]+),\{\}\):p\(([a-zA-Z]+),\{\}\),endAdornment:o===\1&&p\(([a-zA-Z]+),\{\}\),onClick:\(\)=>\{([a-zA-Z]+)\(\1\),([a-zA-Z]+)\(\)\},children:[a-zA-Z]+\(\1\)\},\1\)\)/|map(\1=>p(\2,{dense:!0,icon:\1.label==="grid"?p(\3,{}):p(\4,{}),endAdornment:o===\1.label&&p(\5,{}),onClick:()=>{\g<6>(\1.label),\g<7>()},children:\1.text},\1.label))
 /map\((?P<l>[\w$]+)=>p\((?P<ec>[\w$]+),\{dense:!0,icon:(?P=l)==="grid"\?p\((?P<iW>[\w$]+),\{\}\):p\((?P<aW>[\w$]+),\{\}\),endAdornment:o===(?P=l)&&p\((?P<Vh>[\w$]+),\{\}\),onClick:\(\)=>\{(?P<a>[\w$]+)\((?P=l)\),(?P<s>[\w$]+)\(\)\},children:[\w$]+\((?P=l)\)\},(?P=l)\)\)/|map(\g<l>=>p(\g<ec>,{dense:!0,icon:\g<l>.label==="grid"?p(\g<iW>,{}):p(\g<aW>,{}),endAdornment:o===\g<l>.label&&p(\g<Vh>,{}),onClick:()=>{\g<a>(\g<l>.label),\g<s>()},children:\g<l>.text},\g<l>.label))
