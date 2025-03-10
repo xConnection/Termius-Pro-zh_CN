@@ -15,6 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 INCLUDE_CSS = False
 LOAD_CRACK = False
+CRACK_ONLY = False
 
 
 def run_command(cmd, shell=False):
@@ -78,12 +79,13 @@ class TermiusModifier:
 
     def load_cn_lang(self, lang_file="locales.txt"):
         """加载语言文件内容到 cn_lang 中。"""
-        self.cn_lang = read_file(lang_file)
-        if not self.cn_lang:
-            logging.error("Failed to load language file.")
-            sys.exit(1)
+        if not CRACK_ONLY:
+            self.cn_lang = read_file(lang_file)
+            if not self.cn_lang:
+                logging.error("Failed to load language file.")
+                sys.exit(1)
 
-        if LOAD_CRACK:
+        if LOAD_CRACK or CRACK_ONLY:
             crack_content = read_file("crack.txt", strip_empty=False)
             if crack_content:
                 self.cn_lang.extend(crack_content.splitlines())
@@ -238,11 +240,13 @@ def main():
     parser.add_argument('-replace', '-R', action='store_true', help='Perform replacement using lang.txt.')
     parser.add_argument('-css', '-C', action='store_true', help='Include CSS files in search and replacement.')
     parser.add_argument('-crack', '-K', action='store_true', help='Load crack.txt file.')
+    parser.add_argument('-crackonly', '-O', action='store_true', help='Load crack.txt file only(Do not execute translate).')
     args = parser.parse_args()
 
-    global INCLUDE_CSS, LOAD_CRACK
+    global INCLUDE_CSS, LOAD_CRACK, CRACK_ONLY
     INCLUDE_CSS = args.css
     LOAD_CRACK = args.crack
+    CRACK_ONLY = args.crackonly
 
     check_asar_installed()
 
@@ -250,11 +254,11 @@ def main():
 
     modifier = TermiusModifier(termius_path)
 
-    # 如果没有提供 `-search` 或 `-replace` 参数，默认执行 `-replace`
-    if not (args.replace or args.search):
+    # 如果没有提供 `-search` ， `-replace` 以及`-crackonly`参数，默认执行 `-replace`
+    if not (args.replace or args.search or args.crackonly):
         args.replace = True
 
-    if args.replace:
+    if args.replace or args.crackonly:
         modifier.perform_replacement()
     elif args.search:
         search_in_files(modifier, args.search)

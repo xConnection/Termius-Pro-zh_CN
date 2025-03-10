@@ -54,6 +54,7 @@
 - `-search` 或 `-S`: 搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
 - `-css` 或 `-C`: 搜索或替换的包含css文件，默认不包含。例如：`-search "term1" "term2" -css` ，在 Termius 的所有 JS 和 CSS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
 - `-crack` 或 `-K`: 替换包含 `crack.txt` 文件，默认不包含。
+- `-crackonly` 或 `-O`: 仅替换包含`crack.txt` 文件而不执行汉化，默认不包含。
 ### 目录结构
 
 ```
