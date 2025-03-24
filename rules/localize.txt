@@ -49,9 +49,8 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 "You can also do it later in settings."|"你也可以稍后在设置中执行此操作。"
 
 {LOCAL:"Local",REMOTE:"Remote",DYNAMIC:"Dynamic"}|{LOCAL:"本地",REMOTE:"远程",DYNAMIC:"动态"}
-["Hostname", "Username"]|["主机名", "用户名"]
+["Hostname","Username"]|["主机名","用户名"]
 ["grid","list"]|[{text:"表格",label:"grid"},{text:"列表",label:"list"}]
-#/map\(([a-zA-Z]+)=>p\(([a-zA-Z]+),\{dense:!0,icon:\1==="grid"\?p\(([a-zA-Z]+),\{\}\):p\(([a-zA-Z]+),\{\}\),endAdornment:o===\1&&p\(([a-zA-Z]+),\{\}\),onClick:\(\)=>\{([a-zA-Z]+)\(\1\),([a-zA-Z]+)\(\)\},children:[a-zA-Z]+\(\1\)\},\1\)\)/|map(\1=>p(\2,{dense:!0,icon:\1.label==="grid"?p(\3,{}):p(\4,{}),endAdornment:o===\1.label&&p(\5,{}),onClick:()=>{\g<6>(\1.label),\g<7>()},children:\1.text},\1.label))
 /map\((?P<l>[\w$]+)=>p\((?P<ec>[\w$]+),\{dense:!0,icon:(?P=l)==="grid"\?p\((?P<iW>[\w$]+),\{\}\):p\((?P<aW>[\w$]+),\{\}\),endAdornment:o===(?P=l)&&p\((?P<Vh>[\w$]+),\{\}\),onClick:\(\)=>\{(?P<a>[\w$]+)\((?P=l)\),(?P<s>[\w$]+)\(\)\},children:[\w$]+\((?P=l)\)\},(?P=l)\)\)/|map(\g<l>=>p(\g<ec>,{dense:!0,icon:\g<l>.label==="grid"?p(\g<iW>,{}):p(\g<aW>,{}),endAdornment:o===\g<l>.label&&p(\g<Vh>,{}),onClick:()=>{\g<a>(\g<l>.label),\g<s>()},children:\g<l>.text},\g<l>.label))
 
 children:"Font"|children:"字体"
@@ -122,8 +121,8 @@ text:"Everyone"|text:"所有人"
 "Disable completely"|"永远关闭"
 title:"Autoreconnect"|title:"自动重新连接"
 title:"Import shell history"|title:"引入Shell历史记录"
-title:"Autocomplete"|title:"自动完成"
-children:"Autocomplete"|children:"自动完成"
+title:"Autocomplete"|title:"自动补全"
+children:"Autocomplete"|children:"自动补全"
 title:"Use bright colours for bold text"|title:"使粗体文字颜色更加明亮"
 title:"Use Option as Meta key"|title:"将Option键映射为Meta键"
 "Terminal emulation type"|"Terminal模拟类型"
@@ -131,6 +130,7 @@ title:"Use Option as Meta key"|title:"将Option键映射为Meta键"
 "Text Size"|"字体大小"
 "Suggest new"|"推荐新内容"
 "Keywords highlighting"|"关键词高亮"
+"Keyword highlighting"|"关键词高亮"
 "Would you like to add custom rules to highlight output in the terminal?"|"你想要加入自定义的终端高亮关键词输出规则吗？"
 "Let us know."|"让我们知道"
 "Detect Host Operating System"|"检测主机操作系统"
@@ -140,7 +140,6 @@ title:"Use Option as Meta key"|title:"将Option键映射为Meta键"
 "Detect OS Script"|"检测系统脚本"
 "How often (in seconds) to send SSH-level keepalive packets to the server. Set to 0 to disable."|"向服务器发送SSH级别保活数据包的频率（以秒为单位）。设置为0可禁用。"
 "Switch Left Panel Size"|"切换左面板大小"
-"Shortcut"|"快捷键"
 "Previous Tab"|"上一个标签页"
 "Search hosts or ssh user@address"|"搜索主机或 ssh 用户@地址"
 "Search tabs"|"搜索标签页"
@@ -479,7 +478,7 @@ has been downloaded and will be automatically installed on exit`|退出时将会
 "SFTP Client"|"SFTP 客户端"
 "to the Keychain"|"到密钥链"
 "Terminal settings"|"终端设置"
-"Scrollback"|"Scrollback(回滚)"
+"Scrollback"|"滚动回退"
 children:"New"|children:"新建"
 "Local Terminal"|"本地终端"
 "Let us know!"|"让我们知道！"
@@ -607,7 +606,7 @@ S?"":"for"|""
 "Access internal database, web service or host on the internal network from your machine"|"从你的计算机访问内部数据库、web服务或内部网络上的主机"
 "Expose your development services running in localhost on internal network to the internet"|"将内部网络上本地主机中运行的开发服务公开到互联网"
 "Use to protect data with SSH encryption – when using the Internet at a coffee shop, hotel, or any other minimally secure network"|"用于通过SSH加密保护数据——在咖啡店、酒店或任何其他最低安全网络中使用互联网时。"
-"Save your frequently used commands as Snippet to access them in the side panel or autocomplete."|"将你常用的命令保存为代码片段, 便于在侧边栏或自动完成中访问它们。"
+"Save your frequently used commands as Snippet to access them in the side panel or autocomplete."|"将你常用的命令保存为代码片段, 便于在侧边栏或自动补全中访问它们。"
 "Keep everything you need to connect"|"保留连接所需的一切"
 "Protect your data with enterprise-grade encryption"|"使用企业级加密保护你的数据"
 "Securely sync mobile and desktop"|"安全同步移动设备和桌面设备"
@@ -1140,7 +1139,6 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Export snippet"|"导出代码片段"
 "Key Details Context Menu"|"Key Details Context Menu"
 
-
 /target:`\${([^}]+)} Vault`/|target:`${\g<1>} 保管库`
 /`\${([^}]+)} to`/|`${\g<1>}到`
 /`\${([^}]+)} \${([^}]+)} to ?`/|`${\g<1>}${\g<2>}到`
@@ -1148,11 +1146,6 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Couldn’t get the link."|"无法获取链接。"
 "Something went wrong."|"出错了."
 "Something went wrong!"|"出错了!"
-
-#20241030新增
-#字体修改, 根据自己的喜好, 包含css文件替换
-fontFamily:"monospace"|fontFamily:"hack,monospace"
-CircularXX|system-ui,-apple-system,BlinkMacSystemFont,Arial,CircularXX,sans-serif
 
 children:"CHANGELOG"|children:"更新日志"
 children:"RESTART"|children:"重启"
@@ -1304,7 +1297,7 @@ ${n?"snippets":"snippet"}`|个代码片段`
 `${e.snippets_count} ${n?"snippets":"snippet"}`|`${e.snippets_count} 个代码片段`
 
 "start typing..."|"开始键入..."
-"activate autocomplete for this session"|"激活此会话的自动完成功能"
+"activate autocomplete for this session"|"激活此会话的自动补全功能"
 "Add password for sudo"|"为sudo添加密码"
 "Add and store your identities securely in Termius and use them for faster connections."|"在Termius中安全地添加和存储你的身份，并使用它们实现更快的连接。"
 "Convert text to command with AI"|"使用AI将文本转换为命令"
@@ -1431,9 +1424,9 @@ children:"Reconnect"|children:"重新连接"
 "Decrease terminal font size"|"减小终端字体大小"
 "Reset terminal font size to default"|"将终端字体大小重置为默认值"
 
-"Activate autocomplete"|"激活自动完成"
-"Enabling autocomplete..."|"正在启用自动完成..."
-"Couldn't activate autocomplete"|"无法激活自动完成"
+"Activate autocomplete"|"激活自动补全"
+"Enabling autocomplete..."|"正在启用自动补全..."
+"Couldn't activate autocomplete"|"无法激活自动补全"
 "Something went wrong. Try again."|"出错了，请重试。"
 "Too many attempts. Try later."|"尝试次数过多，请稍后再试。"
 "AI could not generate results."|"AI无法产生结果。"
@@ -1442,8 +1435,8 @@ children:"Reconnect"|children:"重新连接"
 "Do not allow to type in assistant input during generation"|"不允许在生成过程中输入辅助输入"
 "A user has dismissed generation suggestion"|"用户已拒绝生成建议"
 "User sent a prompt to AI and the request was rejected"|"用户向AI发送提示，请求被拒绝"
-"A user closes autocomplete popup or there are no suggestions to offer."|"用户关闭自动完成弹出窗口或没有提供任何建议。"
-"A special state for dismissed autocomplete popup. It is used to have ability to turn back to the previous active state by pressing Tab key"|"关闭自动完成弹出窗口的特殊状态。它能够通过按Tab键返回到之前的活动状态"
+"A user closes autocomplete popup or there are no suggestions to offer."|"用户关闭自动补全弹出窗口或没有提供任何建议。"
+"A special state for dismissed autocomplete popup. It is used to have ability to turn back to the previous active state by pressing Tab key"|"关闭自动补全弹出窗口的特殊状态。它能够通过按Tab键返回到之前的活动状态"
 "Join our discord channel to get latest updates and share your feedback."|"加入我们的discord频道以获取最新更新并分享你的反馈。"
 "Join Discord"|"加入Discord"
 /`Enabled \(\${([^}]+)}\)`/|`已启用(${\g<1>})`
@@ -1454,7 +1447,7 @@ fieldName:"proxy"|fieldName:"代理"
 /" hosts"([^"]+)" reuse this "/|"个主机"\g<1>"重用此"
 "Create a group for easier update"|"创建分组以便于更新"
 
-"Password autocomplete popup is visible"|"密码自动完成弹出窗口可见"
+"Password autocomplete popup is visible"|"密码自动补全弹出窗口可见"
 "Inherited Password"|"继承的密码"
 /`Password reset failed with status \${([^}]+)}`/|`密码重置失败，状态为${\g<1>}`
 
@@ -1515,7 +1508,7 @@ children:"Security"|children:"安全"
 
 "Upgrade now to keep your work uninterrupted"|"立即升级以确保你的工作不被中断"
 "Upgrade to get more from Termius"|"升级以从Termius中获得更多功能"
-/i\("span",{(.*?),children:\[([^,]+)," "\]}\),"of your full Termius experience"/|"你完整体验Termius",i("span",{\g<1>,children:[\g<2>]})
+/i\("span",{(.*?),children:\[([^,]+)," "\]}\),"of your full Termius experience"/|"你完整体验 Termius ",i("span",{\g<1>,children:[\g<2>]})
 /`\${([^}]+)} days left`:"Last day"/|`还剩${\g<1>}天`:"的最后一天"
 children:"Recommended"|children:"推荐"
 "when billed annually"|"按年计费时"
@@ -1582,3 +1575,11 @@ placeholder:"New Workspace"|placeholder:"新建工作区"
 "Save a template"|"保存模板"
 "Workspace Tab"|"工作区选项卡"
 "New Tab Screen"|"新建选项卡屏幕"
+"Some Pro features have been disabled in this session"|"此会话中已禁用某些Pro功能"
+before:"Use",after:"to open side panel"|before:"使用",after:"打开侧边栏"
+title:"Workspace"|title:"工作区"
+label??"Workspace"|label??"工作区"
+/({id:\S+?,name:)(\S+?)(,encryptionKeyId:\S+?,isDefault:\S+?,role:\S+?})/|\g<1>\g<2>==="Team"?"团队":\g<2>\g<3>
+/`This will disable "\${(\w+)}" shortcut`/|`此操作将禁用"${\g<1>}"快捷键`
+children:"Shortcut"|children:"快捷键"
+children:"Action"|children:"操作"
