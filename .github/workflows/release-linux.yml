@@ -2,197 +2,24 @@ name: Release Linux
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 时间 00:00 触发
-  workflow_dispatch:      # 允许手动触发
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
-  localization:
-    runs-on: ubuntu-latest  # 使用 Ubuntu 作为运行环境
-    timeout-minutes: 30     # 设置超时时间为 30 分钟
-
-    env:
-      APP_FILE: app-linux.asar          # 定义 app.asar 文件名
-      APP_CRACK_FILE: app-linux-crack.asar  # 定义 app-crack.asar 文件名
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
-
-      - name: Install required Python packages
-        run: |
-          python -m pip install --upgrade pip
-
-      - name: Download Termius.deb
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "下载 Termius.deb..."
-          wget --no-verbose -O Termius.deb https://www.termius.com/download/linux/Termius.deb || { echo "::error::下载 Termius.deb 失败"; exit 1; }
-          echo "Termius.deb 下载成功"
-
-      - name: Extract version from Termius.deb
-        id: extract_version
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "从 Termius.deb 提取版本号..."
-
-          # 方法 1：使用 dpkg -I 提取版本号
-          deb_version=$(dpkg -I Termius.deb | grep -i 'Version:' | awk '{print $2}')
-
-          # 方法 2：如果方法 1 失败，使用 ar 和 tar 提取版本号
-          if [ -z "$deb_version" ]; then
-            echo "方法 1 失败，尝试方法 2..."
-            deb_version=$(ar p Termius.deb control.tar.gz | tar -xzO ./control | grep -i 'Version:' | awk '{print $2}')
-          fi
-
-          # 检查是否成功提取版本号
-          if [ -n "$deb_version" ]; then
-            echo "提取的 Termius 版本号: $deb_version"
-            echo "DEB_VERSION=$deb_version" >> $GITHUB_ENV
-          else
-            echo "::error::无法从 Termius.deb 提取版本号"
-            exit 1
-          fi
-
-      - name: Get latest Termius version from GitHub Releases
-        id: get_github_version
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Token
-        run: |
-          set -e  # 启用错误检查
-          echo "获取 GitHub 最新版本..."
-
-          # 获取最新 Release 信息
-          response=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/${{ github.repository }}/releases/latest")
-          echo "API URL: https://api.github.com/repos/${{ github.repository }}/releases/latest"
-          echo "API 响应: $response"
-
-          github_version=$(echo "$response" | jq -r '.tag_name // "0.0.0"')
-          github_version=$(echo "$github_version" | sed 's/v//')
-          echo "GitHub 最新版本: $github_version"
-          echo "GITHUB_VERSION=$github_version" >> $GITHUB_ENV
-
-      - name: Compare versions
-        id: compare_versions
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "比较版本号..."
-
-          if [ "$(printf '%s\n' "$DEB_VERSION" "$GITHUB_VERSION" | sort -V | tail -n1)" == "$DEB_VERSION" ] && [ "$DEB_VERSION" != "$GITHUB_VERSION" ]; then
-            echo "Termius.deb 版本 ($DEB_VERSION) 高于 GitHub Release 版本 ($GITHUB_VERSION)。继续工作流。"
-            echo "CONTINUE_WORKFLOW=true" >> $GITHUB_ENV
-          else
-            echo "Termius.deb 版本 ($DEB_VERSION) 低于或等于 GitHub Release 版本 ($GITHUB_VERSION)。退出工作流。"
-            echo "CONTINUE_WORKFLOW=false" >> $GITHUB_ENV
-          fi
-
-      - name: Install dependencies
-        if: env.CONTINUE_WORKFLOW == 'true'
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "安装依赖项..."
-          sudo apt-get update
-          sudo apt-get install -y libnotify4 libsecret-1-0 python3-tk
-
-      - name: Install Termius using dpkg
-        if: env.CONTINUE_WORKFLOW == 'true'
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "安装 Termius..."
-          sudo dpkg -i Termius.deb || { echo "::error::Termius 安装失败"; exit 1; }
-          echo "Termius 安装成功"
-
-      - name: Install asar
-        if: env.CONTINUE_WORKFLOW == 'true'
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "安装 asar..."
-          npm install -g asar || { echo "::error::安装 asar 失败"; exit 1; }
-
-      - name: Generate and prepare assets
-        if: env.CONTINUE_WORKFLOW == 'true'
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "生成资源文件..."
-
-          # 创建临时目录
-          temp_dir=$(mktemp -d)
-          echo "临时目录: $temp_dir"
-
-          # 定义源文件路径
-          source_path="/opt/Termius/resources/app.asar"
-
-          # 定义生成文件的函数
-          function generate_asset {
-            local script_args=$1
-            local dest_file_name=$2
-
-            # 生成 .asar 文件
-            sudo python lang.py $script_args || { echo "::error::生成 $dest_file_name 失败"; exit 1; }
-
-            # 将生成的 .asar 文件复制到临时目录
-            dest_path="$temp_dir/$dest_file_name"
-            cp "$source_path" "$dest_path"
-            echo "已将 $dest_file_name 复制到临时目录: $dest_path"
-          }
-
-          # 生成 app.asar 和 app-crack.asar
-          generate_asset "-R" "$APP_FILE"
-          generate_asset "-RK" "$APP_CRACK_FILE"
-
-          # 保存临时目录路径到环境变量
-          echo "TEMP_DIR=$temp_dir" >> $GITHUB_ENV
-
-      - name: Update Release Notes with version
-        if: env.CONTINUE_WORKFLOW == 'true'
-        shell: bash
-        run: |
-          set -e  # 启用错误检查
-          echo "更新 Release Notes..."
-
-          # 读取 RELEASE_NOTES.md 文件内容
-          release_notes=$(cat ./RELEASE_NOTES.md)
-
-          # 定义版本号变量
-          release_version="v$DEB_VERSION"
-
-          # 替换版本号占位符
-          updated_release_notes=$(echo "$release_notes" | sed "s/{{VERSION}}/$release_version/g")
-
-          # 将更新后的内容保存到环境变量
-          echo "UPDATED_RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$updated_release_notes" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Create Release and Upload Assets
-        if: env.CONTINUE_WORKFLOW == 'true'
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          tag: v${{ env.DEB_VERSION }}  # 使用 .deb 文件中的版本号作为标签
-          body: ${{ env.UPDATED_RELEASE_NOTES }}  # 使用更新后的 Release Notes
-          draft: true  # 创建 Draft Release
-          prerelease: false
-          artifacts: ${{ env.TEMP_DIR }}/*  # 上传所有临时目录中的文件
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Clean up
-        if: always()
-        shell: bash
-        run: |
-          if [ -d "$TEMP_DIR" ]; then
-            echo "清理临时目录: $TEMP_DIR"
-            rm -rf "$TEMP_DIR"
-          fi
+  localize:
+    uses: ./.github/workflows/shared-steps.yml
+    with:
+      platform: ubuntu
+      version_command: |
+        wget --no-verbose -O Termius.deb https://www.termius.com/download/linux/Termius.deb || { echo "::error::Failed to download Termius.deb"; exit 1; }
+        termius_version=$(dpkg -I Termius.deb | grep -i 'Version:' | awk '{print $2}')
+        if [ -z "$termius_version" ]; then
+          termius_version=$(ar p Termius.deb control.tar.gz | tar -xzO ./control | grep -i 'Version:' | awk '{print $2}')
+        fi
+      install_command: |
+        sudo apt-get update
+        sudo apt-get install -y libnotify4 libsecret-1-0 python3-tk
+        sudo dpkg -i Termius.deb || { echo "::error::Failed to install Termius"; exit 1; }
+        sudo chmod -R 755 /opt/Termius/resources
+        sudo chown -R $USER:$USER /opt/Termius/resources
+      source_path: /opt/Termius/resources/app.asar
