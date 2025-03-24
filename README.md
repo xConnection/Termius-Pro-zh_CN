@@ -1,76 +1,96 @@
-# Termius Pro zh-CN
+# Termius 中文汉化及功能增强脚本
 
-## 简介
+## 🎉 简介
 
-- 该项目是一个 Termius 补丁包教程，用于将 Termius 软件界面翻译为中文。
+Termius 汉化脚本
 
-## 教程
+## ✨ 功能特性
 
-### 脚本一键汉化
+- **一键汉化** - 自动化界面汉化
+- **试用功能激活** - 解锁高级特性
+- **多平台支持** - Windows/macOS/Linux
+- **安全机制** - 自动备份
 
-- 使用`python`脚本一键汉化。
+## 🚀 快速开始
 
-1. 安装
+### 📦 前置要求
 
-    - 确保你已经安装了以下工具：
-        - Python
-        - `asar` 工具(用于处理 asar 文件)，可以通过 `npm install -g asar` 安装。
+- Python
+- Node.js (用于安装asar)
 
-2. 运行脚本
-    ```sh
-    python lang.py
-    ```
+```bash
+npm install -g asar
+```
 
-如果最后输出 `Replacement done.` 说明汉化完成。
+### 🧑‍💻 基础使用
 
-### 手动汉化
+```bash
+# 默认执行汉化操作
+python lang.py
+```
 
-如果没有`python`环境，可以手动汉化。
+### 🪄 高级功能
+
+```bash
+# 汉化+试用+样式修改
+python lang.py --localize --trial --style
+
+# 仅激活试用功能
+python lang.py --trial
+
+# 还原到初始状态
+python lang.py --restore
+
+# 搜索特定字符串
+python lang.py --find "term1" "term2"
+```
+
+## 🔬 参数详解
+
+| 参数                | 简写   | 功能说明     | 示例                                  |
+|-------------------|------|----------|-------------------------------------|
+| `--localize`      | `-l` | 汉化操作(默认) | `python lang.py`                    |
+| `--trial`         | `-t` | 激活试用功能   | `python lang.py -lt`                |
+| `--skip-login`    | `-k` | 跳过登录验证   | `python lang.py -lk`                |
+| `--style`         | `-s` | 样式修改     | `python lang.py -ls`                |
+| `--restore`       | `-r` | 还原操作     | `python lang.py -r`                 |
+| `--find <关键词...>` | `-f` | 多条件联合搜索  | `python lang.py -f "term1" "term2"` |
+
+## 📂 规则文件结构
+
+```markdown
+rules/
+├── trial.txt      # 试用功能规则(-t/--trial时加载)
+├── localize.txt   # 汉化规则(-l/--localize时加载)
+├── skip_login.txt # 登录跳过规则(-k/--skip-login时加载)
+└── style.txt      # 样式修改规则(-s/--style时加载)
+```
+
+## 🤷 手动汉化
+
+如果没有相关环境，可以手动汉化。
 
 1. 前往 [releases](https://github.com/ArcSurge/Termius-Pro-zh_CN/releases) 下载对应版本的 `app.asar` 文件。
-2. 找到 Termius 安装目录，通常位置为
+2. 找到 Termius 安装目录，通常位置为:
     - **Windows**: `C:\Users\你的用户名\AppData\Local\Programs\Termius`。
     - **Linux**: `/opt/Termius`。
     - **MacOS**: `/Applications/Termius.app/Contents`。
 3. 将下载的 `app.asar` 文件覆盖 `resources` 文件夹下的 `app.asar` 文件。
 4. 如果你不想自动更新，请删除 `app-update.yml` 文件。
+5. 最后，如果没有想要的版本，可 **fork** 本项目，在仓库的 `Settings > Secrets and variables > Actions > Variables` 中定义变量:
+   - **Name**: RELEASE_LIST
+   - **Value**: l,lk,lt
+   - 默认`l,lk,lt`，代表生成三个版本，l为汉化，lt为汉化+试用，lk为汉化+跳过登录。可自行修改，通过逗号分隔。
 
-## 注意事项
+## 🔔 注意事项
 
 - 该项目仅适用于本地学习和测试，不支持在线功能。
 - 使用汉化包可能会影响 Termius 软件的正常更新。
 - 在执行任何操作之前，请确保备份 Termius 的相关文件。
 
-## 关于 `lang.py` 说明
-
-### 功能
-
-- **字符串替换**：根据提供的语言文件 `locales.txt` 或 `crack.txt` 替换 Termius 界面上的字符串。
-- **文件搜索**：搜索指定的字符串，并显示包含这些字符串的文件路径。
-
-### 参数说明
-
-- `-replace` 或 `-R`: 根据 `locales.txt` 或 `crack.txt` 文件执行字符串替换操作。
-- `-search` 或 `-S`: 搜索指定的字符串。例如：`-search "term1" "term2"`，在 Termius 的所有 JS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
-- `-css` 或 `-C`: 搜索或替换的包含css文件，默认不包含。例如：`-search "term1" "term2" -css` ，在 Termius 的所有 JS 和 CSS 文件中搜索 `term1` 和 `term2` 同时存在的文件。
-- `-crack` 或 `-K`: 替换包含 `crack.txt` 文件，默认不包含。
-- `-crackonly` 或 `-O`: 仅替换包含`crack.txt` 文件而不执行汉化，默认不包含。
-### 目录结构
-
-```
-project/
-├── crack.txt
-├── locales.txt
-└── lang.py
-```
-
-- `crack.txt`: 包含消除 Pro 相关的替换。
-- `locales.txt`: 包含需要替换的语言字符串。
-- `lang.py`: 主脚本文件。
-
-## 声明
+## 📜 免责声明
 
 - 本仓库包括发布页内的所有文件仅供学习和交流，请勿用于任何非法用途，严禁二次出售，请在下载后的24小时内删除！如有侵权请联系删除！
-- 本项目仅为社区贡献者个人行为，使用本补丁包可能存在风险，请用户谨慎决定是否安装。
-- 用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断。
-- 本人对任何脚本问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害。
+- 用于测试和学习研究，禁止用于商业用途，不能保证其合法性、准确性、完整性和有效性，请根据情况自行判断。
+- 本人对任何问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害，使用即表示知晓风险。
+- 保留随时终止项目的权利。
