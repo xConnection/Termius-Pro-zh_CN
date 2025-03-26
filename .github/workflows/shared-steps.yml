@@ -79,14 +79,15 @@ jobs:
           echo "Comparing versions..."
 
           if [ "$(printf '%s\n' "$TERMIUS_VERSION" "$GITHUB_VERSION" | sort -V | tail -n1)" == "$TERMIUS_VERSION" ] && [ "$TERMIUS_VERSION" != "$GITHUB_VERSION" ]; then
-            echo "Termius package version ($TERMIUS_VERSION) is higher than GitHub Release version ($GITHUB_VERSION). Continuing workflow."
+            echo "::notice::Termius package version ($TERMIUS_VERSION) is higher than GitHub Release version ($GITHUB_VERSION). Continuing workflow."
+            echo "should_continue=true" >> $GITHUB_OUTPUT
           else
-            echo "Termius package version ($TERMIUS_VERSION) is lower than or equal to GitHub Release version ($GITHUB_VERSION). Exiting workflow."
-            exit 0
+            echo "::notice::Termius package version ($TERMIUS_VERSION) is lower than or equal to GitHub Release version ($GITHUB_VERSION). Exiting workflow."
+            echo "should_continue=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Install Termius application package
-        if: steps.compare_versions.outcome == 'success'
+        if: steps.compare_versions.outputs.should_continue == 'true'
         shell: bash
         run: |
           set -e
@@ -95,7 +96,7 @@ jobs:
           echo "Termius package installed successfully"
 
       - name: Install asar packaging tool
-        if: steps.compare_versions.outcome == 'success'
+        if: steps.compare_versions.outputs.should_continue == 'true'
         shell: bash
         run: |
           set -e
@@ -103,7 +104,7 @@ jobs:
           npm install -g asar || { echo "::error::Failed to install asar"; exit 1; }
 
       - name: Generate localization assets
-        if: steps.compare_versions.outcome == 'success'
+        if: steps.compare_versions.outputs.should_continue == 'true'
         shell: bash
         run: |
           set -e
@@ -187,7 +188,7 @@ jobs:
           echo "TEMP_DIR=$temp_dir" >> $GITHUB_ENV    
 
       - name: Prepare release notes content
-        if: steps.compare_versions.outcome == 'success'
+        if: steps.compare_versions.outputs.should_continue == 'true'
         id: prepare_release_notes
         shell: bash
         run: |
@@ -204,7 +205,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Publish release with generated assets
-        if: steps.compare_versions.outcome == 'success'
+        if: steps.compare_versions.outputs.should_continue == 'true'
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
