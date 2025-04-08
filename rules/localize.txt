@@ -51,7 +51,7 @@ Contact your team admin to request access.`|请与你的团队管理员联系以
 {LOCAL:"Local",REMOTE:"Remote",DYNAMIC:"Dynamic"}|{LOCAL:"本地",REMOTE:"远程",DYNAMIC:"动态"}
 ["Hostname","Username"]|["主机名","用户名"]
 ["grid","list"]|[{text:"表格",label:"grid"},{text:"列表",label:"list"}]
-/map\((?P<l>[\w$]+)=>p\((?P<ec>[\w$]+),\{dense:!0,icon:(?P=l)==="grid"\?p\((?P<iW>[\w$]+),\{\}\):p\((?P<aW>[\w$]+),\{\}\),endAdornment:o===(?P=l)&&p\((?P<Vh>[\w$]+),\{\}\),onClick:\(\)=>\{(?P<a>[\w$]+)\((?P=l)\),(?P<s>[\w$]+)\(\)\},children:[\w$]+\((?P=l)\)\},(?P=l)\)\)/|map(\g<l>=>p(\g<ec>,{dense:!0,icon:\g<l>.label==="grid"?p(\g<iW>,{}):p(\g<aW>,{}),endAdornment:o===\g<l>.label&&p(\g<Vh>,{}),onClick:()=>{\g<a>(\g<l>.label),\g<s>()},children:\g<l>.text},\g<l>.label))
+/map\((?P<l>[\w$]+)=>(?P<p>[\w$]+)\((?P<ec>[\w$]+),\{dense:!0,icon:(?P=l)==="grid"\?(?P=p)\((?P<iW>[\w$]+),\{\}\):(?P=p)\((?P<aW>[\w$]+),\{\}\),endAdornment:(?P<o>[\w$]+)===(?P=l)&&(?P=p)\((?P<Vh>[\w$]+),\{\}\),onClick:\(\)=>\{(?P<a>[\w$]+)\((?P=l)\),(?P<s>[\w$]+)\(\)\},children:[\w$]+\((?P=l)\)\},(?P=l)\)\)/|map(\g<l>=>\g<p>(\g<ec>,{dense:!0,icon:\g<l>.label==="grid"?\g<p>(\g<iW>,{}):\g<p>(\g<aW>,{}),endAdornment:\g<o>===\g<l>.label&&\g<p>(\g<Vh>,{}),onClick:()=>{\g<a>(\g<l>.label),\g<s>()},children:\g<l>.text},\g<l>.label))
 
 children:"Font"|children:"字体"
 children:"Themes"|children:"主题"
@@ -1054,6 +1054,7 @@ plural:"these hosts"|plural:"这些主机"
 
 "New Biometric Key"|"新的生物识别密钥"
 "Biometric Key based on Secure Enclave Process built-in into your mac. This key is not possible to copy or steal. More information by"|"基于内置在你 Mac 中的安全隔区 (Secure Enclave) 处理的生物识别密钥。此密钥无法复制或窃取。更多信息请参阅"
+"Biometric key based on Windows Hello API built into your system. This key is not possible to copy or steal."|"基于内置于系统的 Windows Hello API 的生物识别密钥。此密钥无法复制或窃取。"
 "Biometric key based on Windows Hello API built into your system. This key is not possible to copy or steal. More information by"|"基于内置于系统的 Windows Hello API 的生物识别密钥。此密钥无法复制或窃取。更多信息请参阅"
 "this link"|"此链接"
 "Type"|"类型"
@@ -1551,7 +1552,7 @@ label:"Restore"|label:"恢复"
 "Shared":"Personal"|"共享":"个人"
 children:"Recent sessions"|children:"最近的会话"
 "Your recent sessions will be visible here."|"你最近的会话将在此处可见。"
-/`In the mean time, start connecting with \${([^}]+)}`/|`同时，使用 ${\g<1>} 开始连接`
+/`In the meantime, start connecting with \${([^}]+)}`/|`同时，使用 ${\g<1>} 开始连接`
 "Open your email for verification"|"打开你的电子邮件进行验证"
 "For extra security, we sent you a verification email to"|"为了提高安全性，我们向你发送了一封验证电子邮件"
 "I have verified this device"|"我已经验证了这个设备"
@@ -1583,3 +1584,5 @@ label??"Workspace"|label??"工作区"
 /`This will disable "\${(\w+)}" shortcut`/|`此操作将禁用"${\g<1>}"快捷键`
 children:"Shortcut"|children:"快捷键"
 children:"Action"|children:"操作"
+/children:"Click"([^"]+)children:"to open the link"/|children:"单击"\g<1>children:"以打开链接"
+"title",null,"snippets"|"title",null,"代码片段"
