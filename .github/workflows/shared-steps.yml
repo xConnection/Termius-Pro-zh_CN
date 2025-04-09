@@ -91,7 +91,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          echo "Installing Termius package..."
+          echo "Installing Termius v$TERMIUS_VERSION package..."
           ${{ inputs.install_command }}
           echo "Termius package installed successfully"
 
