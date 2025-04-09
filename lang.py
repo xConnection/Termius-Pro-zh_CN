@@ -12,9 +12,6 @@ import time
 import tkinter as tk
 from tkinter import filedialog
 
-# 日志配置
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)7s - %(message)s")
-
 
 class TermiusModifier:
     @property
@@ -36,7 +33,8 @@ class TermiusModifier:
         self.termius_path = termius_path
         self.args = args
         self.files_cache = {}
-        self.rule_contents = []
+        self.loaded_rules = []
+        self.applied_rules = set()
 
     def load_rules(self):
         """动态加载与参数同名的规则文件"""
@@ -52,7 +50,7 @@ class TermiusModifier:
             try:
                 file_path = os.path.join(script_dir, "rules", file_name)
                 if content := read_file(file_path):
-                    self.rule_contents.extend(content)
+                    self.loaded_rules.extend(content)
             except Exception as e:
                 logging.error(f"Error loading {file_name}: {e}")
                 sys.exit(1)
@@ -80,13 +78,13 @@ class TermiusModifier:
             return
 
         shutil.copy(self._backup_path, self._original_path)
-        logging.info("Restored from backup")
+        logging.info("Restored from backup.")
 
     def create_backup(self):
         """智能备份管理（仅在缺失时创建）"""
         if not os.path.exists(self._backup_path):
             shutil.copy(self._original_path, self._backup_path)
-            logging.info("Created initial backup")
+            logging.info("Created initial backup.")
 
     def manage_workspace(self):
         # 备份
@@ -99,7 +97,7 @@ class TermiusModifier:
         # 清理
         if os.path.exists(self._app_dir):
             shutil.rmtree(self._app_dir, onexc=self._handle_remove_readonly)
-            logging.debug("Cleaned app directory")
+            logging.debug("Cleaned app directory.")
 
     def restore_changes(self):
         self.clean_workspace()
@@ -118,16 +116,22 @@ class TermiusModifier:
         if not file_content:
             return file_content
 
-        for line in self.rule_contents:
+        for line in self.loaded_rules:
             try:
                 if is_comment_line(line):
+                    self.applied_rules.add(line)
                     continue
                 old_val, new_val = parse_replace_rule(line)
+                original_content = file_content
                 if is_regex_pattern(old_val):
                     pattern = re.compile(old_val[1:-1])
                     file_content = pattern.sub(new_val, file_content)
                 else:
                     file_content = file_content.replace(old_val, new_val)
+
+                if original_content != file_content:
+                    # 仅关注内容是否改变
+                    self.applied_rules.add(line)
 
             except ValueError as e:
                 logging.error(f"Skipping invalid rule: {line} → {str(e)}")
@@ -138,14 +142,18 @@ class TermiusModifier:
 
     def replace_rules(self):
         """规则替换"""
+        logging.info("Starting replacement...")
         for file_path in self.files_cache:
             self.files_cache[file_path] = self.replace_content(self.files_cache[file_path])
+        logging.info("Replacement completed.")
 
     def write_files(self):
         """将修改后的内容写入文件"""
+        logging.info("Starting writing...")
         for file_path, content in self.files_cache.items():
             with open(file_path, "w", encoding="utf-8") as file:
                 file.write(content)
+        logging.info("Writing completed.")
 
     def collect_code_files(self):
         """获取所有代码文件路径"""
@@ -175,6 +183,16 @@ class TermiusModifier:
         self.pack_to_asar()
         elapsed = time.monotonic() - start_time
         logging.info(f"Replacement done in {elapsed:.2f} seconds.")
+
+        logging.info(f"Rules applied: {len(self.applied_rules)}/{len(self.loaded_rules)}")
+        unmatched_rules = list(filter(lambda x: x not in self.applied_rules, self.loaded_rules))
+        if unmatched_rules:
+            if len(unmatched_rules) > 3:
+                logging.warning(f"Found {len(unmatched_rules)} unmatched rules. Check debug log for details.")
+            rules_list = "\n".join([f"{i + 1:>4}. {rule}" for i, rule in enumerate(unmatched_rules)])
+            logging.debug(f"Unmatched rules ({len(unmatched_rules)}):\n{rules_list}")
+        else:
+            logging.debug("All rules matched.")
 
     def find_in_content(self):
         """文件内容搜索功能"""
@@ -297,7 +315,12 @@ def main():
     parser.add_argument("-s", "--style", action="store_true", help="UI/UX customization preset.")
     parser.add_argument("-r", "--restore", action="store_true", help="Restore software to initial state.")
     parser.add_argument("-f", "--find", nargs="+", help="Multi-mode search operation.")
+    parser.add_argument("--log-level", type=lambda s: s.upper(), choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='INFO', help="Set logging level: DEBUG|INFO|WARNING|ERROR|CRITICAL (default: %(default)s)")
+
     args = parser.parse_args()
+
+    # 日志配置
+    logging.basicConfig(level=args.log_level, format="%(asctime)s - %(levelname)7s - %(message)s", force=True)
 
     # 如果没有提供参数，默认执行 `--localize`
     if not any((args.trial, args.find, args.style, args.skip_login, args.localize, args.restore)):
