@@ -9,7 +9,7 @@
 "Restart Application"|"重启应用程序"
 "Toggle app theme"|"切换应用主题"
 
-"Find a host or ssh user@hostname..."|"查找主机或 ssh 用户 @ 主机地址"
+"Find a host or ssh user@hostname..."|"查找主机或 ssh user@hostname..."
 "I already use Termius"|"我已经在使用 Termius"
 "Next"|"下一个"
 " Action required"|" 需要操作"
