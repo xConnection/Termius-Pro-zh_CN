@@ -283,7 +283,7 @@ def select_directory(title):
 def get_termius_path():
     """获取 Termius 的路径"""
     default_paths = {
-        "Windows": lambda: os.path.join(os.getenv("USERPROFILE"), "AppData", "Local", "Programs", "Termius", "resources"),
+        "Windows": lambda: os.path.join(os.getenv("LOCALAPPDATA"), "Programs", "Termius", "resources"),
         "Darwin": lambda: "/Applications/Termius.app/Contents/Resources",
         "Linux": lambda: "/opt/Termius/resources"
     }
