@@ -1,5 +1,5 @@
 #开启调试
-/\.\.\.([a-zA-Z]+)\(\!1,\[\{label:"Termius Dev Tools"/|...\g<1>(!0,[{label:"Termius Dev Tools"
+/\.\.\.([\w]+)\(\!1,\[\{label:"Termius Dev Tools"/|...\g<1>(!0,[{label:"Termius Dev Tools"
 "Termius Dev Tools"|"Termius 开发者工具"
 "Background Dev Tools"|"后台开发者工具"
 "Focused Window Dev Tools"|"当前窗口的开发者工具"
@@ -840,7 +840,7 @@ singular:"known host",plural:"known hosts"|singular:"已知主机",plural:"已�
 "Incorrect format"|"格式不正确"
 " and "|" 和 "
 "and"|"和"
-`${e} ${e>1?o:n}`|` ${e} 个${e>1?o:n}`
+/\[`\${(?P<e>\w+?)} \${(?P=e)>1\?(?P<o>\w+?):(?P<n>\w+?)}`\]/|[` ${\g<e>} 个${\g<e>>1?\g<o>:\g<n>}`]
 "Export to a host"|"导出到主机"
 "Save authorized_keys file"|"保存 authorized_keys 文件"
 "Export snippet"|"导出代码片段"
@@ -995,7 +995,7 @@ placeholder:"Value"|placeholder:"值"
 " on"|" 在"
 singular:"Entity",plural:"Entities"|singular:"实体",plural:"实体"
 singular:"identity",plural:"identities"|singular:"身份",plural:"身份"
-`${t.snippets_count} snippet`:`${t.snippets_count} snippets`|`${t.snippets_count} 个代码片段`:`${t.snippets_count} 个代码片段`
+/`\${(?P<t>\w+?)\.snippets_count} snippet`:`\${(?P=t)\.snippets_count} snippets`/|`${\g<t>.snippets_count} 个代码片段`:`${\g<t>.snippets_count} 个代码片段`
 `${t.children_hosts.length} host${t.children_hosts.length!==1?"s":""}`|`${t.children_hosts.length} 个主机`
 `${t.snippets_count} snippet${t.snippets_count!==1?"s":""}`|`${t.snippets_count} 个代码片段`
 /`\${([\w$]+)\.snippets_count([^0]+)0} \${[\w$]+\?"snippets":"snippet"}`/|`${\g<1>.snippets_count\g<2>0} 个代码片段`
@@ -1100,7 +1100,7 @@ children:"Broadcast input"|children:"广播输入"
 
 "Checking for updates..."|"正在检查更新..."
 "Termius update is ready!"|"Termius 更新已准备就绪！"
-`The ${(e==null?void 0:e.version)??"new"} version of Termius is ready to be installed. Click the ”Restart” button to apply the changes and restart the app.`|`Termius 的${(e==null?void 0:e.version)??"新"}版本已准备好安装. 单击“重启”按钮应用更改并重新启动应用程序.`
+/`The \${\((?P<e>\w+?)==null\?void 0:(?P=e)\.version\)\?\?"new"} version of Termius is ready to be installed\. Click the ”Restart” button to apply the changes and restart the app\.`/|`Termius 的${(\g<e>==null?void 0:\g<e>.version)??"新"}版本已准备好安装. 单击“重启”按钮应用更改并重新启动应用程序.`
 "Invalid Configuration: Missing Region"|"配置无效: 缺少区域"
 
 "1 session is disconnected"|"1 个会话已断开"
@@ -1282,6 +1282,7 @@ name:"Personal"|name:"个人"
 title:"Team"|title:"团队"
 
 placeholder:"New Workspace"|placeholder:"新建工作区"
+"Workspace Template"|"工作区模板"
 "Workspace templates"|"工作区模板"
 "New Workspace Template"|"新建工作区模板"
 "The workspace was changed"|"工作区已更改"
@@ -1396,3 +1397,5 @@ children:"Monthly"|children:"月度"
 children:"Annual"|children:"年度"
 "Termius for Education"|"Termius 教育版"
 "Upgrade to Pro now to keep your work uninterrupted"|"立即升级到专业版，让你的工作不受干扰"
+"All vaults"|"全部保管库"
+/([\w$]+?)\("connection",([\w$]+?)\.workspaceTerminals\.length/|\g<1>("个连接",\g<2>.workspaceTerminals.length
