@@ -1,8 +1,9 @@
 # Termius 中文汉化及功能增强脚本
 
-## 🎉 简介
+## 🎉 简介与说明
 
-Termius 汉化脚本
+- Termius 汉化脚本
+- 大家可以在官方[功能请求](https://ideas.termius.com/tabs/1-under-consideration)进行反馈，让官方尽快支持[中文](https://ideas.termius.com/c/82-chinese-localization)。
 
 ## ✨ 功能特性
 
