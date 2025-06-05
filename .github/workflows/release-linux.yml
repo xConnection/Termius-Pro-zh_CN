@@ -9,12 +9,14 @@ jobs:
   localize:
     uses: ./.github/workflows/shared-steps.yml
     with:
+      run_on: ubuntu-24.04  # x86
       platform: ubuntu
       version_command: |
         wget --no-verbose -O Termius.deb https://www.termius.com/download/linux/Termius.deb || { echo "::error::Failed to download Termius.deb"; exit 1; }
         termius_version=$(dpkg -I Termius.deb | grep -i 'Version:' | awk '{print $2}')
         if [ -z "$termius_version" ]; then
           termius_version=$(ar p Termius.deb control.tar.gz | tar -xzO ./control | grep -i 'Version:' | awk '{print $2}')
+          echo "TERMIUS_VERSION=$termius_version" >> $GITHUB_ENV
         fi
       install_command: |
         sudo apt-get update
