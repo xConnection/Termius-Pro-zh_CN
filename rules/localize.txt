@@ -8,16 +8,8 @@
 "Reload Page"|"重新加载页面"
 "Restart Application"|"重启应用程序"
 "Toggle app theme"|"切换应用主题"
-
 "Find a host or ssh user@hostname..."|"查找主机或 ssh user@hostname..."
 "Next"|"下一个"
-" Action required"|" 需要操作"
-" connections left"|" 个剩余连接"
-"Do you want to close run?"|"你想关闭运行吗?"
-"All connections will be closed. Do you want to finish execution and close run?"|"所有连接都将关闭, 是否要完成执行并关闭运行?"
-"Close run"|"关闭运行"
-"Executed":"Executing..."|"已执行":"正在执行..."
-
 title:"Pro",pricePer|title:"专业版",pricePer
 title:"Team",pricePer|title:"团队版",pricePer
 title:"Business",pricePer|title:"企业版",pricePer
@@ -166,9 +158,6 @@ title:"Oldest to newest"|title:"最旧到最新"
 title:"Local"|title:"本地"
 title:"Remote"|title:"远程"
 title:"Dynamic"|title:"动态"
-title:"Expand all"|title:"展开全部"
-title:"Collapse all"|title:"全部折叠"
-title:"Connect to"|title:"连接到"
 operation:"Copy"|operation:"复制"
 operation:"Move"|operation:"移动"
 listName:"Packages"|listName:"包"
@@ -224,31 +213,6 @@ label:"Public Key"|label:"公钥"
 {role:"redo"}|{label:"重做",role:"redo"}
 {role:"cut"}|{label:"剪切",role:"cut"}
 {role:"minimize"}|{label:"最小化",role:"minimize"}
-
-return"Running"|return"正在运行"
-return"Closed Successfully"|return"已成功关闭"
-return"Closed with Error"|return"因错误关闭"
-return"Connecting"|return"正在连接"
-return"Action Required"|return"需要操作"
-["initializing","Initializing..."]|["initializing","正在初始化..."]
-["connecting","Connecting..."]|["connecting","正在连接..."]
-["error","Connection error"]|["error","连接错误"]
-["protocol","Waiting the protocol..."]|["protocol","正在等待协议..."]
-["identity","Waiting the username..."]|["identity","正在等待用户名..."]
-["fingerprint","Waiting the fingerprint..."]|["fingerprint","正在等待指纹..."]
-["requestPassword","Waiting for password..."]|["requestPassword","正在等待密码..."]
-["authInteractive","Waiting for password..."]|["authInteractive","正在等待密码..."]
-["requestPassphrase","Waiting for passphrase..."]|["requestPassphrase","正在等待密码..."]
-["requestPIN","Waiting for PIN..."]|["requestPIN","正在等待 PIN..."]
-["keyboardInteractive","Waiting the passcode..."]|["keyboardInteractive","正在等待密码..."]
-["requestSignature","Waiting for signature..."]|["requestSignature","正在等待签名..."]
-["discoverableKeys","Waiting for discoverable keys..."]|["discoverableKeys","等待可发现的密钥..."]
-["chooseKey","Waiting the key..."]|["chooseKey","正在等待密钥..."]
-["requestSKPresence","Waiting for SK Presence..."]|["requestSKPresence","等待 SK 到来..."]
-["scriptError","Exit code: "]|["scriptError","退出代码: "]
-["executing","Executing snippet..."]|["executing","执行代码片段..."]
-["executed","Exit code: "]|["executed","退出代码: "]
-["sent","Snippet sent to execution"]|["sent","代码片段已发送至执行"]
 
 children:"Public Key"|children:"公钥"
 "Choose protocol"|"选择协议"
@@ -546,8 +510,6 @@ title:"Tags"|title:"标记"
 "Generate"|"生成"
 "All changes saved"|"已保存所有更改"
 "Run"|"运行"
-"Run and Keep"|"运行并保持"
-"Run and keep"|"运行并保持"
 "Grid"|"网格"
 "List"|"列表"
 placeholder:"Label"|placeholder:"标签"
@@ -949,9 +911,6 @@ title:"Generate Biometric Key"|title:"生成生物识别密钥"
 "Number of KDF rounds when saving ED25519 key. Higher numbers can increase protection of the private key but slower passphrase verification."|"保存 ED25519 密钥时的 KDF 轮数。数字越大，私钥的保护性越强，但密码验证速度越慢。"
 "SAVE"|"保存"
 "Set a label"|"设置标签"
-"Connecting..."|"正在连接..."
-" Success"|" 成功"
-"Move to tab"|"移至选项卡"
 singular:"Identity",plural:"Identities"|singular:"身份",plural:"身份"
 "Select Identity"|"选择身份"
 "Identities"|"身份"
@@ -1113,7 +1072,7 @@ children:"Reconnect"|children:"重新连接"
 "Snippet packages"|"片段包"
 "Personal vaults"|"个人保管库"
 "Clear"|"清除"
-"More than 16 hosts selected"|"已选择 16 台以上的主机"
+
 "The file has an incorrect format"|"文件格式不正确"
 /ownerState:([^,]+),children:([^\?]+)\?([\w$]+)\("span",{children:([a-zA-Z]+)}\)/|ownerState:\g<1>,children:\g<2>?\g<3>("span",{children:\g<4>==="Password:"?"密码:":typeof \g<4>==="string"?\g<4>.replace(/Password for ([^:]+):/, "$1的密码:"):\g<4>})
 /{htmlFor:([^,]+),id:([a-zA-Z]+)},([a-zA-Z]+),{children:([a-zA-Z]+)}/|{htmlFor:\g<1>,id:\g<2>},\g<3>,{children:\g<4>==="Password:"?"密码:":typeof \g<4>==="string"?\g<4>.replace(/Password for ([^:]+):/, "$1的密码:"):\g<4>}
@@ -1399,7 +1358,7 @@ children:"Annual"|children:"年度"
 "No tags found. You can add tags when editing a host."|"找不到标记。编辑主机时可以添加标记。"
 "Logs are disabled for the selected vault"|"所选保管库的日志已禁用"
 "Enable logs for this vault in settings."|"在设置中启用此保管库的日志。"
-`You don't have logs in the selected ${Ai("vault",e.length)}`|`所选保管库中没有日志`
+/`You don't have logs in the selected \${\S+?}`/|`所选保管库中没有日志`
 "Start by connecting to a host."|"首先连接到主机。"
 "A log will be saved when you end the session."|"结束会话时将保存日志。"
 "Logs retention policies"|"日志保留策略"
