@@ -78,15 +78,15 @@ rules/
     - **MacOS**: `/Applications/Termius.app/Contents`。
 3. 将下载的 `app.asar` 文件覆盖 `resources` 文件夹下的 `app.asar` 文件。
 4. 如果你不想自动更新，请删除 `app-update.yml` 文件。
-5. 最后，如果没有想要的版本，可在 [Fork][fork] 本项目后前往仓库的 **Settings > Secrets and variables > Actions > [Variables][variables]** 页面定义变量:
+5. 最后，如果没有想要的版本，可在 [Fork][fork] 本项目后前往仓库的 **Settings > Secrets and variables > Actions > Variables** 页面定义变量:
    - **Name**: `RELEASE_LIST`
    - **Value**: `l,lk,lt`
    - 默认`l,lk,lt`，代表生成三个版本，l为汉化，lt为汉化+试用，lk为汉化+跳过登录。可自行修改，通过逗号分隔。
 
 ## 📱 关于安卓版
 - 目前只有汉化功能，暂无其他功能。并且部分词条在源码中，暂未汉化。
-- 由于手机端和桌面端版本号不同，因此安卓版本不会发布在 `Releases` 中，而是暂时托管在 [Actions][localize-android]。[Actions][localize-android] 每天运行一次，请自行查找对应版本进行下载。
-- 若你计划 [Fork][fork] 此项目，请在 [Fork][fork] 后前往仓库的 **Settings > Secrets and variables > Actions > [Secrets][secrets]** 页面，点击 <kdb>New repository secret</kdb> 定义私密变量。
+- 由于手机端和桌面端版本号不同，因此安卓版本不会发布在 `Releases` 中，而是暂时托管在 [Actions][localize-android]。[Actions][localize-android] 每天运行一次，请自行查找对应版本进行下载。注意，这个是需要**登录**才可以下载的。
+- 若你计划 [Fork][fork] 此项目，请在 [Fork][fork] 后前往仓库的 **Settings > Secrets and variables > Actions > Secrets** 页面，点击 <kbd>New repository secret</kbd> 定义私密变量。
   - **Name**: `APK_SIGN_PROPERTIES`
   - **Value**: 填写 [apk.sign.properties.example](android/apk.sign.properties.example) 文件内容（请根据需要修改文件内容）
 
