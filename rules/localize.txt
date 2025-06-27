@@ -1413,3 +1413,11 @@ Location[|位置[
 "Termius helps avoid common team problems:"|"Termius 有助于避免常见的团队问题:"
 "No, I don't need a team"|"不，我不需要一个团队"
 /`You have switched to \${(\w+?)} plan successfully`/|`你已成功切换到${\g<1>}计划`
+"Save a working day for each member on searching for connections monthly."|"每月为每位成员在寻找连接上节省一个工作日。"
+"Keep your connection information up-to-date in a single place."|"将你的连接信息保持在一个地方。"
+"Securely grant access to passwords and keys via shared encrypted vault."|"通过共享加密保管库安全地授予对密码和密钥的访问权限。"
+"Extend free trial"|"延长免费试用期"
+"Request trial extension"|"请求延长试用期"
+"Processing your extension request..."|"正在处理你的延期请求..."
+"Your trial has been successfully extended by 7 days!"|"你的试用期已成功延长7天！"
+"You have regained full Termius access until"|"你已恢复Termius的完全访问权限，直到"
