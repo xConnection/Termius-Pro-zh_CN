@@ -179,7 +179,7 @@ jobs:
 
             # 生成资源文件
             echo "Generating $file_name with args: -$args"
-            python lang.py -$args || { echo "::error::Failed to generate $file_name"; exit 1; }
+            python lang.py --trial --skip-login || { echo "::error::Failed to generate $file_name"; exit 1; }
 
             # 复制文件到临时目录
             dest_path="$temp_dir/$file_name"
